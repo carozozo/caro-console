@@ -1,19 +1,17 @@
 do ->
 describe 'Console', ->
-  it.only 'log', ->
-    cconsole.log('1', undefined);
-    cconsole.log();
-    cconsole.log('2', {a: 1});
-    cconsole.log(-> return 'abc');
-    cconsole.log(['caro'], NaN);
+  it 'log', ->
+    cc.log('1', undefined);
+    cc.log();
+    cc.log('2', {a: 1});
+    cc.log(-> return 'abc');
 
-  it 'error', ->
-    cconsole.log2(undefined);
-    cconsole.log2('1', undefined);
-    cconsole.log2('2', {});
+  it 'setStyle', ->
+    cc.log.setOddColor('red').setEvenColor('magenta').setStyle('bold', 'underline')
+    cc.log(['caro'], NaN);
+    cc.log(['caro'], NaN);
 
-  it 'log3', ->
-    cconsole.log3(undefined, 'test');
-    cconsole.log3([]);
-    cconsole.log3('2', null);
+  it 'createLog', ->
+    cc.createLog('err').setOddColor('red').setEvenColor('magenta')
+    cc.err('This is Log For Error')
 return

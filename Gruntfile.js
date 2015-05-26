@@ -67,7 +67,7 @@ module.exports = function (grunt) {
                     require: [
                         nodeDir + 'coffee-script/register',
                         function () {
-                            cconsole = require('./caro-console.js');
+                            cc = require('./caro-console.js');
                         },
                         function () {
                             var chai = require('chai');

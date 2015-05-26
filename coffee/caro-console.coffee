@@ -10,7 +10,6 @@ do ->
 
   isPlainObjOrArr = (arg) ->
     return caro.isPlainObject(arg) or caro.isArray(arg)
-
   combineMsg = (msg, variable) ->
     if isPlainObjOrArr(msg)
       msg = caro.clone(msg)
@@ -24,57 +23,46 @@ do ->
       variable = caro.toWord(variable)
     else
       variable = caro.toString(variable)
-    msg += variable
-    msg
-
-  doConsole = (args, color) ->
-    return console.log() if args.length <= 0
+    return msg += variable
+  doConsole = () ->
     msg = combineMsg.apply(null, arguments[0])
+    color = arguments[1]
+    styles = arguments[2]
     msg = msg[color]
+    if(styles)
+      caro.forEach styles, (style) ->
+        msg = msg[style] or msg
     console.log msg
     return
-
-  ###*
-  # print different console.log color in odd/even line
-  # @param msg
-  # @param [variable]
-  ###
-  self.log = (msg, variable) ->
-    if @isOdd
-      doConsole arguments, 'green'
+  extendFn = () ->
+    color1 = 'blue'
+    color2 = 'yellow'
+    styles = null
+    fn = (msg, variable) ->
+      return console.log() if arguments.length <= 0
+      if !@isOdd
+        doConsole arguments, color1, styles
+        @isOdd = true
+        return
+      doConsole arguments, color2, styles
       @isOdd = false
-      return
-    doConsole arguments, 'cyan'
-    @isOdd = true
-    return
+      return fn
+    fn.setOddColor = (color) ->
+      color1 = color
+      return fn
+    fn.setEvenColor = (color) ->
+      color2 = color
+      return fn
+    fn.setStyle = () ->
+      styles = arguments
+      return fn
+    return fn
 
-  ###*
-  # print different console.log color in odd/even line
-  # @param msg
-  # @param [variable]
-  ###
-  self.log2 = (msg, variable) ->
-    if @isOdd
-      doConsole arguments, 'blue'
-      @isOdd = false
-      return
-    doConsole arguments, 'yellow'
-    @isOdd = true
-    return
+  self.log = extendFn()
 
-  ###*
-  # print different console.log color in odd/even line
-  # @param msg
-  # @param [variable]
-  ###
-  self.log3 = (msg, variable) ->
-    if @isOdd
-      doConsole arguments, 'magenta'
-      @isOdd = false
-      return
-    doConsole arguments, 'red'
-    @isOdd = true
-    return
+  self.createLog = (logName) ->
+    self[logName] = extendFn()
+    return self[logName]
 
   module.exports = self
   return

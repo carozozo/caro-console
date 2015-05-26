@@ -1,6 +1,6 @@
-/*! caro-console - v0.0.2 - 2015-05-26 */
+/*! caro-console - v0.0.3 - 2015-05-26 */
 (function() {
-  var caro, colors, combineMsg, doConsole, isPlainObjOrArr, self;
+  var caro, colors, combineMsg, doConsole, extendFn, isPlainObjOrArr, self;
   self = {};
   caro = require('caro');
   colors = require('colors/safe');
@@ -22,62 +22,57 @@
     } else {
       variable = caro.toString(variable);
     }
-    msg += variable;
-    return msg;
+    return msg += variable;
   };
-  doConsole = function(args, color) {
-    var msg;
-    if (args.length <= 0) {
-      return console.log();
-    }
+  doConsole = function() {
+    var color, msg, styles;
     msg = combineMsg.apply(null, arguments[0]);
+    color = arguments[1];
+    styles = arguments[2];
     msg = msg[color];
+    if (styles) {
+      caro.forEach(styles, function(style) {
+        return msg = msg[style] || msg;
+      });
+    }
     console.log(msg);
   };
-
-  /**
-   * print different console.log color in odd/even line
-   * @param msg
-   * @param [variable]
-   */
-  self.log = function(msg, variable) {
-    if (this.isOdd) {
-      doConsole(arguments, 'green');
+  extendFn = function() {
+    var color1, color2, fn, styles;
+    color1 = 'blue';
+    color2 = 'yellow';
+    styles = null;
+    fn = function(msg, variable) {
+      if (arguments.length <= 0) {
+        return console.log();
+      }
+      if (!this.isOdd) {
+        doConsole(arguments, color1, styles);
+        this.isOdd = true;
+        return;
+      }
+      doConsole(arguments, color2, styles);
       this.isOdd = false;
-      return;
-    }
-    doConsole(arguments, 'cyan');
-    this.isOdd = true;
+      return fn;
+    };
+    fn.setOddColor = function(color) {
+      color1 = color;
+      return fn;
+    };
+    fn.setEvenColor = function(color) {
+      color2 = color;
+      return fn;
+    };
+    fn.setStyle = function() {
+      styles = arguments;
+      return fn;
+    };
+    return fn;
   };
-
-  /**
-   * print different console.log color in odd/even line
-   * @param msg
-   * @param [variable]
-   */
-  self.log2 = function(msg, variable) {
-    if (this.isOdd) {
-      doConsole(arguments, 'blue');
-      this.isOdd = false;
-      return;
-    }
-    doConsole(arguments, 'yellow');
-    this.isOdd = true;
-  };
-
-  /**
-   * print different console.log color in odd/even line
-   * @param msg
-   * @param [variable]
-   */
-  self.log3 = function(msg, variable) {
-    if (this.isOdd) {
-      doConsole(arguments, 'magenta');
-      this.isOdd = false;
-      return;
-    }
-    doConsole(arguments, 'red');
-    this.isOdd = true;
+  self.log = extendFn();
+  self.createLog = function(logName) {
+    self[logName] = extendFn();
+    return self[logName];
   };
   module.exports = self;
 })();
