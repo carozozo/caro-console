@@ -21,7 +21,7 @@
   ],
   "dependencies": {
     "caro": "latest",
-    "colors": "~1.0.0"
+    "cli-color": "~1.0.0"
   },
   "devDependencies": {
     "coffee-script": "1.9.2",
