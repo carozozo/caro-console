@@ -43,8 +43,8 @@
   };
   extendFn = function() {
     var color1, color2, fn, styles;
-    color1 = 'blue';
-    color2 = 'yellow';
+    color1 = 'white';
+    color2 = 'white';
     styles = null;
     fn = function(msg, variable) {
       if (arguments.length <= 0) {
@@ -57,6 +57,11 @@
       }
       doConsole(arguments, color2, styles);
       this.isOdd = false;
+      return fn;
+    };
+    fn.setColor = function(color) {
+      color1 = color;
+      color2 = color;
       return fn;
     };
     fn.setOddColor = function(color) {
@@ -73,7 +78,7 @@
     };
     return fn;
   };
-  self.log = extendFn();
+  self.log = extendFn().setOddColor('blue').setEvenColor('yellow');
   self.createLog = function(logName) {
     self[logName] = extendFn();
     return self[logName];

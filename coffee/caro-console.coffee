@@ -35,8 +35,8 @@ do ->
     console.log msg
     return
   extendFn = () ->
-    color1 = 'blue'
-    color2 = 'yellow'
+    color1 = 'white'
+    color2 = 'white'
     styles = null
     fn = (msg, variable) ->
       return console.log() if arguments.length <= 0
@@ -46,6 +46,10 @@ do ->
         return
       doConsole arguments, color2, styles
       @isOdd = false
+      return fn
+    fn.setColor= (color) ->
+      color1 = color
+      color2 = color
       return fn
     fn.setOddColor = (color) ->
       color1 = color
@@ -58,7 +62,7 @@ do ->
       return fn
     return fn
 
-  self.log = extendFn()
+  self.log = extendFn().setOddColor('blue').setEvenColor('yellow')
 
   self.createLog = (logName) ->
     self[logName] = extendFn()
