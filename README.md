@@ -1,34 +1,39 @@
 # Caro-Console
-The library for easy-reading console.log
+
+##The library for easy-reading node.js console base on [colors](https://www.npmjs.com/package/colors)
 
 ## Install and Usage
 
-### In Node.js
 ```bash
 $ npm install caro
 ```
 
 ```javascript
-var cconsole = require('caro-console');
-cconsole.log({caro: 'caro'}); // print '{caro: "caro"}' not [Object] 
+var cc = require('caro-console');
+cc.log({caro: 'caro'}); // print '{caro: "caro"}' not '[Object]' 
 ```
 
-- **log(msg, variable) - 輸出 console 訊息**
+###Print log in console
 ```javascript
-caro.log('1', undefined); // '1undefined'
-caro.log(); // ''
-caro.log(2, {a: 1}); // '2{"a": 1}'
-caro.log(function(a){return a;}); // 'function(a){return a;}'
+cc.log('1', undefined); // '1undefined'
+cc.log(); // ''
+cc.log(2, {a: 1}); // '2{"a": 1}'
+cc.log(function(a){return a;}); // 'function(a){return a;}'
 ```
-- **log2(msg, variable) - 輸出 console 訊息**
+
+###Set your log styles
 ```javascript
-caro.log2(undefined); // 'undefined'
-caro.log2('1', undefined); // '1undefined'
-caro.log2('2', {}); // '2{}'
+cc.log.setOddColor('red').setEvenColor('magenta').setStyle('bold', 'underline')
+cc.log('This is msg with color-red');
+cc.log('This is msg with color-magenta');
 ```
-- **log3(msg, variable) - 輸出 console 訊息**
+
+###Create a new log-function for yourself
 ```javascript
-caro.log3(2, {a: 1}); // '2{"a": 1}'
-caro.log3('1', undefined); // '1undefined'
-caro.log3('2', null); // '2null'
+cc.createLog('err').setOddColor('red').setEvenColor('magenta');
+cc.err('This is Log used for error');
+cc.err('This is Log used for error');
+
+cc.createLog('notice').setColor('cyan').setStyle('bold', 'underline');
+cc.notice('This is Log used for notice');
 ```
