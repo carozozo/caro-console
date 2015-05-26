@@ -1,6 +1,6 @@
 {
   "name": "caro-console",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "The library for easy-reading console.log",
   "author": {
     "name": "Caro.Huang",
