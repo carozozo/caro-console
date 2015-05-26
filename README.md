@@ -1,6 +1,6 @@
 # Caro-Console
 
-##The library for easy-reading node.js console base on [colors](https://www.npmjs.com/package/colors)
+## The library for easy-reading node.js console base on [colors](https://www.npmjs.com/package/colors)
 
 ## Install and Usage
 
@@ -13,7 +13,7 @@ var cc = require('caro-console');
 cc.log({caro: 'caro'}); // print '{caro: "caro"}' not '[Object]' 
 ```
 
-###Print log in console
+### Print log in console
 ```javascript
 cc.log('1', undefined); // '1undefined'
 cc.log(); // ''
@@ -21,14 +21,14 @@ cc.log(2, {a: 1}); // '2{"a": 1}'
 cc.log(function(a){return a;}); // 'function(a){return a;}'
 ```
 
-###Set your log styles
+### Set your log styles
 ```javascript
 cc.log.setOddColor('red').setEvenColor('magenta').setStyle('bold', 'underline')
 cc.log('This is msg with color-red');
 cc.log('This is msg with color-magenta');
 ```
 
-###Create a new log-function for yourself
+### Create a new log-function for yourself
 ```javascript
 cc.createLog('err').setOddColor('red').setEvenColor('magenta');
 cc.err('This is Log used for error');
