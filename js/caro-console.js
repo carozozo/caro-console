@@ -7,7 +7,7 @@
   var caro, colors, combineMsg, doConsole, extendFn, isPlainObjOrArr, self;
   self = {};
   caro = require('caro');
-  colors = require('colors/safe');
+  colors = require('cli-color');
   isPlainObjOrArr = function(arg) {
     return caro.isPlainObject(arg) || caro.isArray(arg);
   };
@@ -29,17 +29,17 @@
     return msg += variable;
   };
   doConsole = function() {
-    var color, msg, styles;
+    var color, msg, oColor, styles;
     msg = combineMsg.apply(null, arguments[0]);
     color = arguments[1];
     styles = arguments[2];
-    msg = msg[color];
+    oColor = colors[color] || colors;
     if (styles) {
       caro.forEach(styles, function(style) {
-        return msg = msg[style] || msg;
+        return oColor = oColor[style] || oColor;
       });
     }
-    console.log(msg);
+    console.log(oColor(msg));
   };
   extendFn = function() {
     var color1, color2, fn, styles;

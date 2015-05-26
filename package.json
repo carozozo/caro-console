@@ -1,6 +1,6 @@
 {
   "name": "caro-console",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "The library for easy-reading node.js console",
   "author": {
     "name": "Caro.Huang",
@@ -21,7 +21,7 @@
   ],
   "dependencies": {
     "caro": "latest",
-    "colors": "~1.1.0"
+    "colors": "~1.0.0"
   },
   "devDependencies": {
     "coffee-script": "1.9.2",

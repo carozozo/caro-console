@@ -5,8 +5,8 @@
 do ->
   self = {}
   caro = require 'caro'
-  # https://www.npmjs.org/package/colors
-  colors = require 'colors/safe'
+  # https://www.npmjs.com/package/cli-color
+  colors = require 'cli-color'
 
   isPlainObjOrArr = (arg) ->
     return caro.isPlainObject(arg) or caro.isArray(arg)
@@ -28,11 +28,11 @@ do ->
     msg = combineMsg.apply(null, arguments[0])
     color = arguments[1]
     styles = arguments[2]
-    msg = msg[color]
+    oColor = colors[color] or colors
     if(styles)
       caro.forEach styles, (style) ->
-        msg = msg[style] or msg
-    console.log msg
+        oColor = oColor[style] or oColor
+    console.log oColor(msg)
     return
   extendFn = () ->
     color1 = 'white'
