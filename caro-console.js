@@ -1,28 +1,46 @@
-/*! caro-console - v0.0.1 - 2015-05-26 */
+/*! caro-console - v0.0.2 - 2015-05-26 */
 (function() {
-  var caro, colors, combineMsg, doConsole, self;
+  var caro, colors, combineMsg, doConsole, isPlainObjOrArr, self;
   self = {};
   caro = require('caro');
   colors = require('colors');
+  isPlainObjOrArr = function(arg) {
+    return caro.isPlainObject(arg) || caro.isArray(arg);
+  };
   combineMsg = function(msg, variable) {
-    msg = caro.cloneObj(msg);
-    variable = caro.cloneObj(variable);
-    msg = caro.coverToStr(msg);
-    if (caro.isUndefined(variable)) {
-      variable = '';
+    if (isPlainObjOrArr(msg)) {
+      if (caro.isPlainObject(msg)) {
+        msg = caro.assign({}, msg);
+      }
+      if (caro.isArray(msg)) {
+        msg = caro.assign([], msg);
+      }
+      msg = caro.toWord(msg);
+    } else {
+      msg = caro.toString(msg);
     }
-    variable = caro.coverToStr(variable);
+    if (arguments.length < 2) {
+      variable = '';
+    } else if (isPlainObjOrArr(variable)) {
+      if (caro.isPlainObject(variable)) {
+        variable = caro.assign({}, variable);
+      }
+      if (caro.isArray(msg)) {
+        variable = caro.assign([], variable);
+      }
+      variable = caro.toWord(variable);
+    } else {
+      variable = caro.toString(variable);
+    }
     msg += variable;
     return msg;
   };
   doConsole = function(args, color) {
-    var msg, variable;
-    if (caro.getObjLength(args) <= 0) {
+    var msg;
+    if (args.length <= 0) {
       return console.log();
     }
-    msg = args[0];
-    variable = args[1];
-    msg = combineMsg(msg, variable);
+    msg = combineMsg.apply(null, arguments[0]);
     if (colors) {
       msg = msg[color];
     }
