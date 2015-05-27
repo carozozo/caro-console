@@ -6,7 +6,7 @@ describe 'Console', ->
     cc.log('2', {
       a: 1,
       b: ()->
-      ,
+        return null
       c: ['r']
     }).breakLine(true);
     cc.log('2', '').breakLine(40);

@@ -12,14 +12,14 @@ do ->
     return caro.isObject(arg) and !caro.isFunction(arg)
   combineMsg = (msg, variable) ->
     if isObjAndNotFn(msg)
-      msg = caro.clone(msg)
+      msg = caro.cloneDeep(msg)
       msg = caro.toWord(msg)
     else
       msg = caro.toString(msg)
     if arguments.length < 2
       variable = ''
     else if isObjAndNotFn(variable)
-      variable = caro.clone(variable)
+      variable = caro.cloneDeep(variable)
       variable = caro.toWord(variable)
     else
       variable = caro.toString(variable)

@@ -1,4 +1,4 @@
-/*! caro-console - v0.2.2 - 2015-05-27 */
+/*! caro-console - v0.2.2 - 2015-05-28 */
 (function() {
   var caro, colors, combineMsg, doConsole, extendFn, isObjAndNotFn, self;
   self = {};
@@ -9,7 +9,7 @@
   };
   combineMsg = function(msg, variable) {
     if (isObjAndNotFn(msg)) {
-      msg = caro.clone(msg);
+      msg = caro.cloneDeep(msg);
       msg = caro.toWord(msg);
     } else {
       msg = caro.toString(msg);
@@ -17,7 +17,7 @@
     if (arguments.length < 2) {
       variable = '';
     } else if (isObjAndNotFn(variable)) {
-      variable = caro.clone(variable);
+      variable = caro.cloneDeep(variable);
       variable = caro.toWord(variable);
     } else {
       variable = caro.toString(variable);

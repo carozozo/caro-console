@@ -15,9 +15,9 @@ cc.log({caro: 'caro'}); // print '{caro: "caro"}' not '[Object]'
 
 ### Print log in console
 ```javascript
-cc.log('1', undefined); // '1undefined'
-cc.log(); // ''
-cc.log(2, {a: 1}); // '2{"a": 1}'
+cc.log('1', undefined);
+cc.log();
+cc.log(2, {a: 1});
 cc.log(function(a){return a;}); // 'function(a){return a;}'
 cc.log('This is log with break line', 20).breakLine(true)
 cc.log('This is log with break line length 30').breakLine(30)
