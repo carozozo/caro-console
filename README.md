@@ -1,6 +1,6 @@
 # Caro-Console
 
-## The library for easy-reading node.js console base on [cli-color](https://www.npmjs.com/package/cli-color)
+## The module for easy-reading node.js console base on [cli-color](https://www.npmjs.com/package/cli-color)
 
 ## Install and Usage
 
@@ -19,6 +19,8 @@ cc.log('1', undefined); // '1undefined'
 cc.log(); // ''
 cc.log(2, {a: 1}); // '2{"a": 1}'
 cc.log(function(a){return a;}); // 'function(a){return a;}'
+cc.log('This is log with break line', 20).breakLine(true)
+cc.log('This is log with break line length 30').breakLine(30)
 ```
 
 ### Set your log styles

@@ -25,34 +25,49 @@
     return msg += variable;
   };
   doConsole = function() {
-    var color, msg, oColor, styles;
+    var aBreakLine, breakLine, color, msg, oColor, styles;
+    aBreakLine = [];
     msg = combineMsg.apply(null, arguments[0]);
     color = arguments[1];
     styles = arguments[2];
+    breakLine = arguments[3];
     oColor = colors[color] || colors;
     if (styles) {
       caro.forEach(styles, function(style) {
         return oColor = oColor[style] || oColor;
       });
     }
+    if (breakLine) {
+      caro.loop(function() {
+        return aBreakLine.push('-');
+      }, 1, breakLine);
+    }
     console.log(oColor(msg));
+    if (aBreakLine.length > 0) {
+      console.log(aBreakLine.join(''));
+    }
   };
   extendFn = function() {
-    var color1, color2, fn, styles;
+    var breakLine, color1, color2, fn, styles;
     color1 = 'white';
     color2 = 'white';
     styles = null;
-    fn = function(msg, variable) {
+    breakLine = 0;
+    fn = function(msg, variable, line) {
+      var mainColor;
       if (arguments.length <= 0) {
         return console.log();
       }
+      mainColor = color1;
       if (!this.isOdd) {
-        doConsole(arguments, color1, styles);
         this.isOdd = true;
-        return;
+        mainColor = color1;
+      } else {
+        this.isOdd = false;
+        mainColor = color2;
       }
-      doConsole(arguments, color2, styles);
-      this.isOdd = false;
+      doConsole(arguments, mainColor, styles, breakLine);
+      breakLine = 0;
       return fn;
     };
     fn.setColor = function(color) {
@@ -70,6 +85,11 @@
     };
     fn.setStyle = function() {
       styles = arguments;
+      return fn;
+    };
+    fn.breakLine = function(line) {
+      line = caro.isNumber(line) ? line : 20;
+      breakLine = line;
       return fn;
     };
     return fn;

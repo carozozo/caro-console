@@ -25,29 +25,40 @@ do ->
       variable = caro.toString(variable)
     return msg += variable
   doConsole = () ->
+    aBreakLine = []
     msg = combineMsg.apply(null, arguments[0])
     color = arguments[1]
     styles = arguments[2]
+    breakLine = arguments[3]
     oColor = colors[color] or colors
     if(styles)
       caro.forEach styles, (style) ->
         oColor = oColor[style] or oColor
+    if(breakLine)
+      caro.loop(() ->
+        aBreakLine.push('-')
+      , 1, breakLine)
     console.log oColor(msg)
+    console.log aBreakLine.join('') if(aBreakLine.length > 0)
     return
   extendFn = () ->
     color1 = 'white'
     color2 = 'white'
     styles = null
-    fn = (msg, variable) ->
+    breakLine = 0
+    fn = (msg, variable, line) ->
       return console.log() if arguments.length <= 0
+      mainColor = color1
       if !@isOdd
-        doConsole arguments, color1, styles
         @isOdd = true
-        return
-      doConsole arguments, color2, styles
-      @isOdd = false
+        mainColor = color1
+      else
+        @isOdd = false
+        mainColor = color2
+      doConsole arguments, mainColor, styles, breakLine
+      breakLine = 0
       return fn
-    fn.setColor= (color) ->
+    fn.setColor = (color) ->
       color1 = color
       color2 = color
       return fn
@@ -59,6 +70,10 @@ do ->
       return fn
     fn.setStyle = () ->
       styles = arguments
+      return fn
+    fn.breakLine = (line) ->
+      line = if caro.isNumber(line) then line else 20
+      breakLine = line
       return fn
     return fn
 
