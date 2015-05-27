@@ -1,4 +1,4 @@
-/*! caro-console - v0.2.1 - 2015-05-27 */
+/*! caro-console - v0.2.2 - 2015-05-27 */
 (function() {
   var caro, colors, combineMsg, doConsole, extendFn, isObjAndNotFn, self;
   self = {};
@@ -18,7 +18,6 @@
       variable = '';
     } else if (isObjAndNotFn(variable)) {
       variable = caro.clone(variable);
-      console.log('new Variable=', variable);
       variable = caro.toWord(variable);
     } else {
       variable = caro.toString(variable);

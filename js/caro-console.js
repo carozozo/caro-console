@@ -22,7 +22,6 @@
       variable = '';
     } else if (isObjAndNotFn(variable)) {
       variable = caro.clone(variable);
-      console.log('new Variable=', variable);
       variable = caro.toWord(variable);
     } else {
       variable = caro.toString(variable);
