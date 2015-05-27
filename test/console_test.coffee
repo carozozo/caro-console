@@ -2,8 +2,13 @@ do ->
 describe 'Console', ->
   it 'log', ->
     cc.log('1', undefined);
-    cc.log();
-    cc.log('2', {a: 1}).breakLine(true);
+    cc.log(['d', 'e']);
+    cc.log('2', {
+      a: 1,
+      b: ()->
+      ,
+      c: ['r']
+    }).breakLine(true);
     cc.log('2', '').breakLine(40);
     cc.log(-> return 'abc');
 

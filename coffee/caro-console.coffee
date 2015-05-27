@@ -8,17 +8,17 @@ do ->
   # https://www.npmjs.com/package/cli-color
   colors = require 'cli-color'
 
-  isPlainObjOrArr = (arg) ->
-    return caro.isPlainObject(arg) or caro.isArray(arg)
+  isObjAndNotFn = (arg) ->
+    return caro.isObject(arg) and !caro.isFunction(arg)
   combineMsg = (msg, variable) ->
-    if isPlainObjOrArr(msg)
+    if isObjAndNotFn(msg)
       msg = caro.clone(msg)
       msg = caro.toWord(msg)
     else
       msg = caro.toString(msg)
     if arguments.length < 2
       variable = ''
-    else if isPlainObjOrArr(variable)
+    else if isObjAndNotFn(variable)
       variable = caro.clone(variable)
       variable = caro.toWord(variable)
     else

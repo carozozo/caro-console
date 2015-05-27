@@ -1,14 +1,14 @@
-/*! caro-console - v0.2.0 - 2015-05-27 */
+/*! caro-console - v0.2.1 - 2015-05-27 */
 (function() {
-  var caro, colors, combineMsg, doConsole, extendFn, isPlainObjOrArr, self;
+  var caro, colors, combineMsg, doConsole, extendFn, isObjAndNotFn, self;
   self = {};
   caro = require('caro');
   colors = require('cli-color');
-  isPlainObjOrArr = function(arg) {
-    return caro.isPlainObject(arg) || caro.isArray(arg);
+  isObjAndNotFn = function(arg) {
+    return caro.isObject(arg) && !caro.isFunction(arg);
   };
   combineMsg = function(msg, variable) {
-    if (isPlainObjOrArr(msg)) {
+    if (isObjAndNotFn(msg)) {
       msg = caro.clone(msg);
       msg = caro.toWord(msg);
     } else {
@@ -16,8 +16,9 @@
     }
     if (arguments.length < 2) {
       variable = '';
-    } else if (isPlainObjOrArr(variable)) {
+    } else if (isObjAndNotFn(variable)) {
       variable = caro.clone(variable);
+      console.log('new Variable=', variable);
       variable = caro.toWord(variable);
     } else {
       variable = caro.toString(variable);
