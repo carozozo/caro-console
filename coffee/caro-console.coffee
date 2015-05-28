@@ -15,7 +15,6 @@ do ->
     msg = caro.toWord(msg)
     variable = caro.toWord(variable)
     return msg += variable
-
   doConsole = () ->
     msg = combineMsg.apply(null, arguments[0])
     color = arguments[1]
