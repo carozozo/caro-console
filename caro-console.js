@@ -1,4 +1,4 @@
-/*! caro-console - v0.3.2 - 2015-05-29 */
+/*! caro-console - v0.3.3 - 2015-05-29 */
 (function() {
   var caro, colors, combineMsg, defaultLineLength, doConsole, extendFn, self;
   self = {};
