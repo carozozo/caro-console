@@ -13,11 +13,9 @@ var cc = require('caro-console');
 cc.log({caro: function(){}}); // print '{caro: function(){})' not '{ caro: [Function] }' 
 ```
 
-### Print nonstop-log in console
+### Print nonstop-log
 ```javascript
-cc.log('1', undefined);
-cc.log('array=', {a: 1});
-cc.log(function(a){return a;});
+cc.log('This is ', undefined).log('And arr = ', ['caro', 'console']).log('End');
 ```
 
 ### Easy to print line to separate each log
