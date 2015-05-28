@@ -1,21 +1,25 @@
 do ->
 describe 'Console', ->
   it 'log', ->
-    cc.log('1', undefined);
+    cc.log('This is ', undefined);
     cc.log(['d', 'e']);
-    cc.log('2', {
+    cc.log('obj=', {
       a: 1,
       b: ()->
         return null
       c: ['r']
-    }).breakLine(true);
-    cc.log('2', '').breakLine(40);
+    });
     cc.log(-> return 'abc');
 
   it 'setStyle', ->
     cc.log.setOddColor('red').setEvenColor('magenta').setStyle('bold', 'underline')
     cc.log('This is msg with color-red');
     cc.log('This is msg with color-magenta');
+
+    cc.log.setBreakLine()
+    cc.log('This is msg with break line (length 20)');
+    cc.log.setBreakLine(40)
+    cc.log('This is msg with break line (length 40)');
 
   it 'createLog', ->
     cc.createLog('err').setOddColor('red').setEvenColor('magenta')

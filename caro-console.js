@@ -10,18 +10,14 @@
   combineMsg = function(msg, variable) {
     if (isObjAndNotFn(msg)) {
       msg = caro.cloneDeep(msg);
-      msg = caro.toWord(msg);
-    } else {
-      msg = caro.toString(msg);
     }
     if (arguments.length < 2) {
       variable = '';
     } else if (isObjAndNotFn(variable)) {
       variable = caro.cloneDeep(variable);
-      variable = caro.toWord(variable);
-    } else {
-      variable = caro.toString(variable);
     }
+    msg = caro.toWord(msg);
+    variable = caro.toWord(variable);
     return msg += variable;
   };
   doConsole = function() {
@@ -67,8 +63,6 @@
         mainColor = color2;
       }
       doConsole(arguments, mainColor, styles, breakLine);
-      breakLine = 0;
-      return fn;
     };
     fn.setColor = function(color) {
       color1 = color;
@@ -87,7 +81,7 @@
       styles = arguments;
       return fn;
     };
-    fn.breakLine = function(line) {
+    fn.setBreakLine = function(line) {
       line = caro.isNumber(line) ? line : 20;
       breakLine = line;
       return fn;

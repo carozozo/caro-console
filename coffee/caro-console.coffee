@@ -11,18 +11,13 @@ do ->
   isObjAndNotFn = (arg) ->
     return caro.isObject(arg) and !caro.isFunction(arg)
   combineMsg = (msg, variable) ->
-    if isObjAndNotFn(msg)
-      msg = caro.cloneDeep(msg)
-      msg = caro.toWord(msg)
-    else
-      msg = caro.toString(msg)
+    msg = caro.cloneDeep(msg) if isObjAndNotFn(msg)
     if arguments.length < 2
       variable = ''
     else if isObjAndNotFn(variable)
       variable = caro.cloneDeep(variable)
-      variable = caro.toWord(variable)
-    else
-      variable = caro.toString(variable)
+    msg = caro.toWord(msg)
+    variable = caro.toWord(variable)
     return msg += variable
   doConsole = () ->
     aBreakLine = []
@@ -56,8 +51,7 @@ do ->
         @isOdd = false
         mainColor = color2
       doConsole arguments, mainColor, styles, breakLine
-      breakLine = 0
-      return fn
+      return
     fn.setColor = (color) ->
       color1 = color
       color2 = color
@@ -71,7 +65,7 @@ do ->
     fn.setStyle = () ->
       styles = arguments
       return fn
-    fn.breakLine = (line) ->
+    fn.setBreakLine = (line) ->
       line = if caro.isNumber(line) then line else 20
       breakLine = line
       return fn

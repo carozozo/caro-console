@@ -1,6 +1,6 @@
 # Caro-Console
 
-## The module for easy-reading node.js console base on [cli-color](https://www.npmjs.com/package/cli-color)
+The module for easy-reading node.js console base on [cli-color](https://www.npmjs.com/package/cli-color)
 
 ## Install and Usage
 
@@ -17,10 +17,8 @@ cc.log({caro: 'caro'}); // print '{caro: "caro"}' not '[Object]'
 ```javascript
 cc.log('1', undefined);
 cc.log();
-cc.log(2, {a: 1});
-cc.log(function(a){return a;}); // 'function(a){return a;}'
-cc.log('This is log with break line', 20).breakLine(true)
-cc.log('This is log with break line length 30').breakLine(30)
+cc.log('array=', {a: 1});
+cc.log(function(a){return a;});
 ```
 
 ### Set your log styles
@@ -28,6 +26,11 @@ cc.log('This is log with break line length 30').breakLine(30)
 cc.log.setOddColor('red').setEvenColor('magenta').setStyle('bold', 'underline')
 cc.log('This is msg with color-red');
 cc.log('This is msg with color-magenta');
+
+cc.log.setBreakLine()
+cc.log('This is msg with break line (length 20)');
+cc.log.setBreakLine(40)
+cc.log('This is msg with break line (length 40)');
 ```
 
 ### Create a new log-function for yourself
