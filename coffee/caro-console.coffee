@@ -7,7 +7,7 @@ do ->
   caro = require 'caro'
   # https://www.npmjs.com/package/cli-color
   colors = require 'cli-color'
-  defaultLineLength = 20
+  defaultLineLength = 40
 
   combineMsg = (msg, variable) ->
     if arguments.length < 2
@@ -25,6 +25,8 @@ do ->
     if(styles)
       caro.forEach styles, (style) ->
         oColor = oColor[style] or oColor
+    else
+      console.log('........')
     console.log oColor(msg)
     console.log caro.repeat('=', lineLength) if(lineLength > 0)
     return
@@ -71,7 +73,7 @@ do ->
 
   self.lineLog = (num, line) ->
     num = if caro.isNumber(num) then num else defaultLineLength
-    line = if line == true then '=' else '-'
+    line = if line != false then '=' else '-'
     console.log caro.repeat line, num
     return self
 

@@ -40,4 +40,8 @@ cc.err('This is Log used for error');
 
 cc.createLog('notice').setColor('cyan').setStyle('bold', 'underline');
 cc.notice('This is Log used for notice');
+
+### Easy to print line to separate each log
+```javascript
+cc.lineLog().log('First log').lineLog(30, false).log('Second log');
 ```

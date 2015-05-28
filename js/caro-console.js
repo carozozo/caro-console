@@ -4,14 +4,11 @@
  * @author Caro.Huang
  */
 (function() {
-  var caro, colors, combineMsg, defaultLineLength, doConsole, extendFn, isObjAndNotFn, self;
+  var caro, colors, combineMsg, defaultLineLength, doConsole, extendFn, self;
   self = {};
   caro = require('caro');
   colors = require('cli-color');
-  defaultLineLength = 20;
-  isObjAndNotFn = function(arg) {
-    return caro.isObject(arg) && !caro.isFunction(arg);
-  };
+  defaultLineLength = 40;
   combineMsg = function(msg, variable) {
     if (arguments.length < 2) {
       variable = '';
@@ -31,6 +28,8 @@
       caro.forEach(styles, function(style) {
         return oColor = oColor[style] || oColor;
       });
+    } else {
+      console.log('........');
     }
     console.log(oColor(msg));
     if (lineLength > 0) {
@@ -90,7 +89,7 @@
   };
   self.lineLog = function(num, line) {
     num = caro.isNumber(num) ? num : defaultLineLength;
-    line = line === true ? '=' : '-';
+    line = line !== false ? '=' : '-';
     console.log(caro.repeat(line, num));
     return self;
   };
