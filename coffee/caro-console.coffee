@@ -7,34 +7,26 @@ do ->
   caro = require 'caro'
   # https://www.npmjs.com/package/cli-color
   colors = require 'cli-color'
+  defaultLineLength = 20
 
-  isObjAndNotFn = (arg) ->
-    return caro.isObject(arg) and !caro.isFunction(arg)
   combineMsg = (msg, variable) ->
-    msg = caro.cloneDeep(msg) if isObjAndNotFn(msg)
     if arguments.length < 2
       variable = ''
-    else if isObjAndNotFn(variable)
-      variable = caro.cloneDeep(variable)
     msg = caro.toWord(msg)
     variable = caro.toWord(variable)
     return msg += variable
+
   doConsole = () ->
-    aBreakLine = []
     msg = combineMsg.apply(null, arguments[0])
     color = arguments[1]
     styles = arguments[2]
-    breakLine = arguments[3]
+    lineLength = arguments[3]
     oColor = colors[color] or colors
     if(styles)
       caro.forEach styles, (style) ->
         oColor = oColor[style] or oColor
-    if(breakLine)
-      caro.loop(() ->
-        aBreakLine.push('-')
-      , 1, breakLine)
     console.log oColor(msg)
-    console.log aBreakLine.join('') if(aBreakLine.length > 0)
+    console.log caro.repeat('=', lineLength) if(lineLength > 0)
     return
   extendFn = () ->
     color1 = 'white'
@@ -66,7 +58,7 @@ do ->
       styles = arguments
       return fn
     fn.setBreakLine = (line) ->
-      line = if caro.isNumber(line) then line else 20
+      line = if caro.isNumber(line) then line else defaultLineLength
       breakLine = line
       return fn
     return fn
@@ -76,6 +68,12 @@ do ->
   self.createLog = (logName) ->
     self[logName] = extendFn()
     return self[logName]
+
+  self.lineLog = (num, line) ->
+    num = if caro.isNumber(num) then num else defaultLineLength
+    line = if line == true then '=' else '-'
+    console.log caro.repeat line, num
+    return self
 
   module.exports = self
   return

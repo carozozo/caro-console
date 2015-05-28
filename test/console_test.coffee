@@ -8,6 +8,10 @@ describe 'Console', ->
         return null
       c: ['r']
     }).log('And function is', -> return 'abc');
+    a=()->
+      return '123'
+    cc.log(a)
+    console.log(a())
 
   it 'setStyle', ->
     cc.log.setOddColor('red').setEvenColor('magenta').setStyle('bold', 'underline')
@@ -27,5 +31,8 @@ describe 'Console', ->
     cc.createLog('notice').setColor('cyan').setStyle('bold', 'underline')
     cc.notice('This is Log used for notice')
 
-  it ''
+  it 'lineLog', ->
+    cc.log.setStyle(null)
+    cc.lineLog(20).log('This is first log between line').lineLog()
+
 return

@@ -4,47 +4,37 @@
  * @author Caro.Huang
  */
 (function() {
-  var caro, colors, combineMsg, doConsole, extendFn, isObjAndNotFn, self;
+  var caro, colors, combineMsg, defaultLineLength, doConsole, extendFn, isObjAndNotFn, self;
   self = {};
   caro = require('caro');
   colors = require('cli-color');
+  defaultLineLength = 20;
   isObjAndNotFn = function(arg) {
     return caro.isObject(arg) && !caro.isFunction(arg);
   };
   combineMsg = function(msg, variable) {
-    if (isObjAndNotFn(msg)) {
-      msg = caro.cloneDeep(msg);
-    }
     if (arguments.length < 2) {
       variable = '';
-    } else if (isObjAndNotFn(variable)) {
-      variable = caro.cloneDeep(variable);
     }
     msg = caro.toWord(msg);
     variable = caro.toWord(variable);
     return msg += variable;
   };
   doConsole = function() {
-    var aBreakLine, breakLine, color, msg, oColor, styles;
-    aBreakLine = [];
+    var color, lineLength, msg, oColor, styles;
     msg = combineMsg.apply(null, arguments[0]);
     color = arguments[1];
     styles = arguments[2];
-    breakLine = arguments[3];
+    lineLength = arguments[3];
     oColor = colors[color] || colors;
     if (styles) {
       caro.forEach(styles, function(style) {
         return oColor = oColor[style] || oColor;
       });
     }
-    if (breakLine) {
-      caro.loop(function() {
-        return aBreakLine.push('-');
-      }, 1, breakLine);
-    }
     console.log(oColor(msg));
-    if (aBreakLine.length > 0) {
-      console.log(aBreakLine.join(''));
+    if (lineLength > 0) {
+      console.log(caro.repeat('=', lineLength));
     }
   };
   extendFn = function() {
@@ -87,7 +77,7 @@
       return fn;
     };
     fn.setBreakLine = function(line) {
-      line = caro.isNumber(line) ? line : 20;
+      line = caro.isNumber(line) ? line : defaultLineLength;
       breakLine = line;
       return fn;
     };
@@ -97,6 +87,12 @@
   self.createLog = function(logName) {
     self[logName] = extendFn();
     return self[logName];
+  };
+  self.lineLog = function(num, line) {
+    num = caro.isNumber(num) ? num : defaultLineLength;
+    line = line === true ? '=' : '-';
+    console.log(caro.repeat(line, num));
+    return self;
   };
   module.exports = self;
 })();
