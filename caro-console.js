@@ -49,7 +49,7 @@
     color2 = 'white';
     styles = null;
     breakLine = 0;
-    fn = function(msg, variable, line) {
+    fn = function(msg, variable) {
       var mainColor;
       if (arguments.length <= 0) {
         return console.log();
@@ -63,6 +63,7 @@
         mainColor = color2;
       }
       doConsole(arguments, mainColor, styles, breakLine);
+      return self;
     };
     fn.setColor = function(color) {
       color1 = color;

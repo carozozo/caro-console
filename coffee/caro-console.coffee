@@ -41,7 +41,7 @@ do ->
     color2 = 'white'
     styles = null
     breakLine = 0
-    fn = (msg, variable, line) ->
+    fn = (msg, variable) ->
       return console.log() if arguments.length <= 0
       mainColor = color1
       if !@isOdd
@@ -51,7 +51,7 @@ do ->
         @isOdd = false
         mainColor = color2
       doConsole arguments, mainColor, styles, breakLine
-      return
+      return self
     fn.setColor = (color) ->
       color1 = color
       color2 = color

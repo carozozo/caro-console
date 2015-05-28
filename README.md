@@ -13,10 +13,9 @@ var cc = require('caro-console');
 cc.log({caro: 'caro'}); // print '{caro: "caro"}' not '[Object]' 
 ```
 
-### Print log in console
+### Print nonstop-log in console
 ```javascript
 cc.log('1', undefined);
-cc.log();
 cc.log('array=', {a: 1});
 cc.log(function(a){return a;});
 ```

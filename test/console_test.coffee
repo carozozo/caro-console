@@ -1,15 +1,13 @@
 do ->
 describe 'Console', ->
   it 'log', ->
-    cc.log('This is ', undefined);
-    cc.log(['d', 'e']);
-    cc.log('obj=', {
+    cc.log('This is ', undefined).log('And arr = ', ['caro', 'console']);
+    cc.log('obj is ', {
       a: 1,
       b: ()->
         return null
       c: ['r']
-    });
-    cc.log(-> return 'abc');
+    }).log('And function is', -> return 'abc');
 
   it 'setStyle', ->
     cc.log.setOddColor('red').setEvenColor('magenta').setStyle('bold', 'underline')
@@ -28,4 +26,6 @@ describe 'Console', ->
 
     cc.createLog('notice').setColor('cyan').setStyle('bold', 'underline')
     cc.notice('This is Log used for notice')
+
+  it ''
 return
