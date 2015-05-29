@@ -6,7 +6,7 @@
     "name": "Caro.Huang",
     "email": "carozozo@yahoo.com.tw"
   },
-  "main": "caro-console.min.js",
+  "main": "caro-console.js",
   "files": [
     "caro-console.js",
     "caro-console.min.js"
@@ -24,7 +24,7 @@
     "cli-color": "~1.0.0"
   },
   "devDependencies": {
-    "coffee-script": "1.9.2",
+    "coffee-script": "~1.9.2",
     "grunt": "~0.4.5",
     "grunt-contrib-coffee": "~0.13.0",
     "grunt-contrib-concat": "~0.5.1",

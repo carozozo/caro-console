@@ -1,6 +1,6 @@
 # Caro-Console
 
-The module for easy-reading node.js console base on [cli-color](https://www.npmjs.com/package/cli-color)
+The module for easy-reading node.js console depend on [cli-color](https://www.npmjs.com/package/cli-color)
 
 ## Install and Usage
 
