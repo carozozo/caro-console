@@ -1,11 +1,9 @@
 module.exports = function (grunt) {
     var pkgName = '<%= pkg.name %>';
-    var pkgFile = pkgName + '.js';
     var coffeeDir = 'coffee/';
     var jsDir = 'js/';
     var testDir = 'test/';
     var nodeDir = 'node_modules/';
-    var banner = '/*! ' + pkgName + ' - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> */\r\n';
 
     // Project configuration.
     grunt.initConfig({
@@ -34,17 +32,6 @@ module.exports = function (grunt) {
                 }
             }
         },
-        uglify: {
-            options: {
-                stripBanners: true,
-                banner: banner
-            },
-            dist: {
-                files: {
-                    '<%= pkg.name %>.min.js': [pkgFile]
-                }
-            }
-        },
         mochaTest: {
             test: {
                 options: {
@@ -67,13 +54,10 @@ module.exports = function (grunt) {
 
     // coffee-script 轉 js
     grunt.loadNpmTasks('grunt-contrib-coffee');
-    // 檔案最小化
-    grunt.loadNpmTasks('grunt-contrib-uglify');
     // unit test
     grunt.loadNpmTasks('grunt-mocha-test');
 
     // 套裝任務
-    grunt.registerTask('default', ['coffee', 'uglify', 'test']);
+    grunt.registerTask('default', ['coffee', 'test']);
     grunt.registerTask('test', ['mochaTest']);
-    grunt.registerTask('compileTest', ['coffee', 'mochaTest']);
 };
