@@ -19,6 +19,9 @@
     "console",
     "log"
   ],
+  "scripts": {
+    "test": "grunt test"
+  },
   "dependencies": {
     "caro": "latest",
     "cli-color": "~1.0.0"
