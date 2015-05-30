@@ -39,11 +39,11 @@ module.exports = function (grunt) {
                     require: [
                         nodeDir + 'coffee-script/register',
                         function () {
-                            cc = require('./caro-console.js');
+                            global.cc = require('./caro-console.js');
                         },
                         function () {
                             var chai = require('chai');
-                            should = chai.should();
+                            global.should = chai.should();
                         }
                     ]
                 },
