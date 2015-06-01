@@ -33,12 +33,10 @@ doConsole = function() {
     caro.forEach(styles, function(style) {
       return oColor = oColor[style] || oColor;
     });
-  } else {
-    console.log('........');
   }
   console.log(oColor(msg));
   if (lineLength > 0) {
-    console.log(caro.repeat('=', lineLength));
+    return console.log(caro.repeat('=', lineLength));
   }
 };
 

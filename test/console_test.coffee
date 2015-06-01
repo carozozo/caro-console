@@ -11,7 +11,6 @@ describe 'Console', ->
     a = ()->
       return '123'
     cc.log(a)
-    console.log(a())
 
   it 'setStyle', ->
     cc.log.setOddColor('red').setEvenColor('magenta').setStyle('bold', 'underline');

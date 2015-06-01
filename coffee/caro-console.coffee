@@ -23,11 +23,8 @@ doConsole = () ->
   if(styles)
     caro.forEach styles, (style) ->
       oColor = oColor[style] or oColor
-  else
-    console.log('........')
   console.log oColor(msg)
   console.log caro.repeat('=', lineLength) if(lineLength > 0)
-  return
 extendFn = () ->
   color1 = 'white'
   color2 = 'white'
