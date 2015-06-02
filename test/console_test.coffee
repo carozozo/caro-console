@@ -14,8 +14,8 @@ describe 'Console', ->
 
     name = 'caro';
     age = 18
-    cc.log('I am %s and %s age', name, age)
-    cc.log('I am ', name, ' and ', age,' age')
+    cc.log('I am %s and %s years old', name, age)
+    cc.log('I am ', name, ' and ', age, ' years old')
 
   it 'setStyle', ->
     cc.log.setOddColor('red').setEvenColor('magenta').setStyle('bold', 'underline');
