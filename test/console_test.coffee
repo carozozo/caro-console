@@ -1,6 +1,6 @@
 do ->
 describe 'Console', ->
-  it.only 'log', ->
+  it 'log', ->
     cc.log('This is ', undefined).log('And arr = ', ['caro', 'console']);
     cc.log('obj is ', {
       a: 1,
