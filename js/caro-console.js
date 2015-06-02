@@ -13,13 +13,19 @@ colors = require('cli-color');
 
 defaultLineLength = 40;
 
-combineMsg = function(msg, variable) {
-  if (arguments.length < 2) {
-    variable = '';
-  }
+combineMsg = function(msg) {
+  var args;
+  args = caro.drop(arguments);
   msg = caro.toWord(msg);
-  variable = caro.toWord(variable);
-  return msg += variable;
+  caro.forEach(args, function(val) {
+    val = caro.toWord(val);
+    if (msg.indexOf('%s') > -1) {
+      return msg = msg.replace('%s', val);
+    } else {
+      return msg += val;
+    }
+  });
+  return msg;
 };
 
 doConsole = function() {

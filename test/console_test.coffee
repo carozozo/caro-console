@@ -1,6 +1,6 @@
 do ->
 describe 'Console', ->
-  it 'log', ->
+  it.only 'log', ->
     cc.log('This is ', undefined).log('And arr = ', ['caro', 'console']);
     cc.log('obj is ', {
       a: 1,
@@ -11,6 +11,11 @@ describe 'Console', ->
     a = ()->
       return '123'
     cc.log(a)
+
+    name = 'caro';
+    age = 18
+    cc.log('I am %s and %s age', name, age)
+    cc.log('I am ', name, ' and ', age,' age')
 
   it 'setStyle', ->
     cc.log.setOddColor('red').setEvenColor('magenta').setStyle('bold', 'underline');

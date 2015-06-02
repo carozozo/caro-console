@@ -18,6 +18,11 @@ cc.log({caro: function(){}}); // print '{caro: function(){})' not '{ caro: [Func
 ### Print nonstop-log
 ```javascript
 cc.log('This is ', undefined).log('And arr = ', ['caro', 'console']).log('End');
+
+var name = 'caro';
+var age = 18;
+cc.log('I am %s and %s years old', name, age);
+cc.log('I am ', name, ' and ', age,' years old');
 ```
 
 ### Easy to print line to separate each log

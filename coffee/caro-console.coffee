@@ -8,12 +8,17 @@ caro = require 'caro'
 colors = require 'cli-color'
 defaultLineLength = 40
 
-combineMsg = (msg, variable) ->
-  if arguments.length < 2
-    variable = ''
+combineMsg = (msg) ->
+  args = caro.drop(arguments)
   msg = caro.toWord(msg)
-  variable = caro.toWord(variable)
-  return msg += variable
+  caro.forEach(args, (val) ->
+    val = caro.toWord(val)
+    if(msg.indexOf('%s') > -1)
+      msg = msg.replace('%s', val)
+    else
+      msg += val
+  )
+  return msg
 doConsole = () ->
   msg = combineMsg.apply(null, arguments[0])
   color = arguments[1]
