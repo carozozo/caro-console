@@ -1,6 +1,6 @@
 # Caro-Console
 
-[![Build Status](https://travis-ci.org/carozozo/caro-console.svg?branch=master)](https://travis-ci.org/carozozo/caro-console)  
+[![Build Status](https://travis-ci.org/carozozo/caro-console.svg?branch=master)](https://travis-ci.org/carozozo/caro-console)
 
 The module for easy-reading node.js console depend on [cli-color](https://www.npmjs.com/package/cli-color)
 
