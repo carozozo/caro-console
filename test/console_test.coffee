@@ -29,7 +29,7 @@ describe 'Console', ->
     cc.log.setBreakLine(50)
     cc.log('This is msg with break line (length 40)');
 
-#    cc.log.setColor().setStyle().setBreakLine(0);
+    #    cc.log.setColor().setStyle().setBreakLine(0);
     cc.log.resetAll();
     cc.log('This is msg without style');
 

@@ -32,7 +32,7 @@ cc.log('I am ', name, ' and ', age, ' years old');
 ### Easy to print line to separate each log
 ```javascript
 cc.lineLog().log('First log').lineLog(30, false).log('Second log');
-cc.line().log('First log').line(30, false).log('Second log'); // same as logLine
+cc.line().log('First log').line(30, false).log('Second log'); // same as lineLog
 ```
 
 ### Set your log styles
@@ -68,10 +68,12 @@ cc.log.setColor('white');
 cc.createLog('info').setColor('green');
 cc.createLog('err').setColor('red');
 
-if(process.env.ENV_VARIABLE == 'production')
-    cc.accept('err', 'info'); // only print cc.err and cc.info when production
-else
+if (process.env.ENV_VARIABLE === 'production') {
+    // only print cc.err and cc.info in console when production
+    cc.accept('err', 'info');
+} else {
     cc.accept(); // accept all
+}
 
 cc.log('This is Log'); // won't print when production
 cc.info('This is Info');
