@@ -6,7 +6,9 @@ self = {}
 caro = require 'caro'
 # https://www.npmjs.com/package/cli-color
 colors = require 'cli-color'
+defaultColor = 'white'
 defaultLineLength = 40
+acceptLogs = []
 
 combineMsg = (msg) ->
   args = caro.drop(arguments)
@@ -31,11 +33,12 @@ doConsole = () ->
   console.log oColor(msg)
   console.log caro.repeat('=', lineLength) if(lineLength > 0)
 extendFn = () ->
-  color1 = 'white'
-  color2 = 'white'
+  color1 = defaultColor
+  color2 = defaultColor
   styles = null
   breakLine = 0
   fn = (msg, variable) ->
+    return if acceptLogs.length > 0 and acceptLogs.indexOf(fn.logName) < 0
     return console.log() if arguments.length <= 0
     mainColor = color1
     if !@isOdd
@@ -47,34 +50,43 @@ extendFn = () ->
     doConsole arguments, mainColor, styles, breakLine
     return self
   fn.setColor = (color) ->
-    color1 = color
-    color2 = color
+    color1 = color or defaultColor
+    color2 = color or defaultColor
     return fn
   fn.setOddColor = (color) ->
-    color1 = color
+    color1 = color or defaultColor
     return fn
   fn.setEvenColor = (color) ->
-    color2 = color
+    color2 = color or defaultColor
     return fn
   fn.setStyle = () ->
     styles = arguments
     return fn
-  fn.setBreakLine = (line) ->
+  fn.setLine = fn.setBreakLine = (line) ->
     line = if caro.isNumber(line) then line else defaultLineLength
     breakLine = line
     return fn
+  fn.resetAll = () ->
+    color1 = defaultColor
+    color2 = defaultColor
+    styles = null
+    breakLine = 0
   return fn
-
-self.log = extendFn().setOddColor('blue').setEvenColor('yellow')
 
 self.createLog = (logName) ->
   self[logName] = extendFn()
+#  self[logName].logName = logName
   return self[logName]
 
-self.lineLog = (num, line) ->
+self.line = self.lineLog = (num, line) ->
   num = if caro.isNumber(num) then num else defaultLineLength
   line = if line != false then '=' else '-'
   console.log caro.repeat line, num
   return self
+
+self.accept = () ->
+  acceptLogs = caro.values(arguments)
+
+self.createLog('log').setOddColor('blue').setEvenColor('yellow')
 
 module.exports = self

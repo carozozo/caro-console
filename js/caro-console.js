@@ -3,7 +3,7 @@
  * Console
  * @author Caro.Huang
  */
-var caro, colors, combineMsg, defaultLineLength, doConsole, extendFn, self;
+var acceptLogs, caro, colors, combineMsg, defaultColor, defaultLineLength, doConsole, extendFn, self;
 
 self = {};
 
@@ -11,7 +11,11 @@ caro = require('caro');
 
 colors = require('cli-color');
 
+defaultColor = 'white';
+
 defaultLineLength = 40;
+
+acceptLogs = [];
 
 combineMsg = function(msg) {
   var args;
@@ -48,12 +52,15 @@ doConsole = function() {
 
 extendFn = function() {
   var breakLine, color1, color2, fn, styles;
-  color1 = 'white';
-  color2 = 'white';
+  color1 = defaultColor;
+  color2 = defaultColor;
   styles = null;
   breakLine = 0;
   fn = function(msg, variable) {
     var mainColor;
+    if (acceptLogs.length > 0 && acceptLogs.indexOf(fn.logName) < 0) {
+      return;
+    }
     if (arguments.length <= 0) {
       return console.log();
     }
@@ -69,42 +76,52 @@ extendFn = function() {
     return self;
   };
   fn.setColor = function(color) {
-    color1 = color;
-    color2 = color;
+    color1 = color || defaultColor;
+    color2 = color || defaultColor;
     return fn;
   };
   fn.setOddColor = function(color) {
-    color1 = color;
+    color1 = color || defaultColor;
     return fn;
   };
   fn.setEvenColor = function(color) {
-    color2 = color;
+    color2 = color || defaultColor;
     return fn;
   };
   fn.setStyle = function() {
     styles = arguments;
     return fn;
   };
-  fn.setBreakLine = function(line) {
+  fn.setLine = fn.setBreakLine = function(line) {
     line = caro.isNumber(line) ? line : defaultLineLength;
     breakLine = line;
     return fn;
   };
+  fn.resetAll = function() {
+    color1 = defaultColor;
+    color2 = defaultColor;
+    styles = null;
+    return breakLine = 0;
+  };
   return fn;
 };
-
-self.log = extendFn().setOddColor('blue').setEvenColor('yellow');
 
 self.createLog = function(logName) {
   self[logName] = extendFn();
   return self[logName];
 };
 
-self.lineLog = function(num, line) {
+self.line = self.lineLog = function(num, line) {
   num = caro.isNumber(num) ? num : defaultLineLength;
   line = line !== false ? '=' : '-';
   console.log(caro.repeat(line, num));
   return self;
 };
+
+self.accept = function() {
+  return acceptLogs = caro.values(arguments);
+};
+
+self.createLog('log').setOddColor('blue').setEvenColor('yellow');
 
 module.exports = self;
