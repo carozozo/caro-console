@@ -5,6 +5,7 @@
 The module for easy-reading node.js console depend on [cli-color](https://www.npmjs.com/package/cli-color)
 
 **Last Updated:**   
+Add [log.resetAll]
 Add [accept]
 
 ## Install and Usage
@@ -68,7 +69,7 @@ cc.createLog('info').setColor('green');
 cc.createLog('err').setColor('red');
 
 if(process.env.ENV_VARIABLE == 'production')
-    cc.accept('err','info'); // only print cc.err and cc.info when production
+    cc.accept('err', 'info'); // only print cc.err and cc.info when production
 else
     cc.accept(); // accept all
 
