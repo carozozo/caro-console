@@ -43,7 +43,6 @@ extendFn = () ->
     mainColor = color1
     if !@isOdd
       @isOdd = true
-      mainColor = color1
     else
       @isOdd = false
       mainColor = color2
