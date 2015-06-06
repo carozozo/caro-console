@@ -5,7 +5,7 @@
 The module for easy-reading node.js console depend on [cli-color](https://www.npmjs.com/package/cli-color)
 
 **Last Updated:**   
-Add [log.resetAll]
+Add [log.resetAll]   
 Add [accept]
 
 ## Install and Usage

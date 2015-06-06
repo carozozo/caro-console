@@ -108,6 +108,7 @@ extendFn = function() {
 
 self.createLog = function(logName) {
   self[logName] = extendFn();
+  self[logName].logName = logName;
   return self[logName];
 };
 

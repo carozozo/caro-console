@@ -75,7 +75,7 @@ extendFn = () ->
 
 self.createLog = (logName) ->
   self[logName] = extendFn()
-#  self[logName].logName = logName
+  self[logName].logName = logName
   return self[logName]
 
 self.line = self.lineLog = (num, line) ->
