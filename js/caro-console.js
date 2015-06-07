@@ -3,7 +3,7 @@
  * Console
  * @author Caro.Huang
  */
-var acceptLogs, caro, colors, combineMsg, defaultColor, defaultLineLength, doConsole, extendFn, self;
+var acceptLogs, caro, colors, combineMsg, defShowMe, defStyle, defaultColor, defaultLineLength, doConsole, extendFn, getStackInfo, self;
 
 self = {};
 
@@ -13,9 +13,20 @@ colors = require('cli-color');
 
 defaultColor = 'white';
 
-defaultLineLength = 40;
+defStyle = null;
+
+defaultLineLength = 0;
+
+defShowMe = false;
 
 acceptLogs = [];
+
+getStackInfo = function(stack) {
+  if (!stack) {
+    return;
+  }
+  return stack.stack;
+};
 
 combineMsg = function(msg) {
   var args;
@@ -33,16 +44,21 @@ combineMsg = function(msg) {
 };
 
 doConsole = function() {
-  var color, lineLength, msg, oColor, styles;
+  var color, lineLength, msg, oColor, showMe, stacks, styles;
   msg = combineMsg.apply(null, arguments[0]);
   color = arguments[1];
   styles = arguments[2];
   lineLength = arguments[3];
+  showMe = arguments[4];
   oColor = colors[color] || colors;
   if (styles) {
     caro.forEach(styles, function(style) {
       return oColor = oColor[style] || oColor;
     });
+  }
+  if (showMe) {
+    stacks = caro.getStackList(2, 1) || [];
+    console.log(getStackInfo(stacks[0]));
   }
   console.log(oColor(msg));
   if (lineLength > 0) {
@@ -51,11 +67,12 @@ doConsole = function() {
 };
 
 extendFn = function() {
-  var breakLine, color1, color2, fn, styles;
+  var color1, color2, fn, lineLength, showMe, styles;
   color1 = defaultColor;
   color2 = defaultColor;
-  styles = null;
-  breakLine = 0;
+  styles = defStyle;
+  lineLength = defaultLineLength;
+  showMe = defShowMe;
   fn = function(msg, variable) {
     var mainColor;
     if (acceptLogs.length > 0 && acceptLogs.indexOf(fn.logName) < 0) {
@@ -67,12 +84,11 @@ extendFn = function() {
     mainColor = color1;
     if (!this.isOdd) {
       this.isOdd = true;
-      mainColor = color1;
     } else {
       this.isOdd = false;
       mainColor = color2;
     }
-    doConsole(arguments, mainColor, styles, breakLine);
+    doConsole(arguments, mainColor, styles, lineLength, showMe);
     return self;
   };
   fn.setColor = function(color) {
@@ -92,16 +108,18 @@ extendFn = function() {
     styles = arguments;
     return fn;
   };
-  fn.setLine = fn.setBreakLine = function(line) {
+  fn.setLine = function(line) {
     line = caro.isNumber(line) ? line : defaultLineLength;
-    breakLine = line;
+    lineLength = line;
     return fn;
   };
   fn.resetAll = function() {
     color1 = defaultColor;
     color2 = defaultColor;
-    styles = null;
-    return breakLine = 0;
+    styles = defStyle;
+    lineLength = defaultLineLength;
+    showMe = defShowMe;
+    return fn;
   };
   return fn;
 };
@@ -112,8 +130,8 @@ self.createLog = function(logName) {
   return self[logName];
 };
 
-self.line = self.lineLog = function(num, line) {
-  num = caro.isNumber(num) ? num : defaultLineLength;
+self.line = function(num, line) {
+  num = caro.isNumber(num) ? num : 40;
   line = line !== false ? '=' : '-';
   console.log(caro.repeat(line, num));
   return self;
