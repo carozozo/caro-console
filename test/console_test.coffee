@@ -65,6 +65,6 @@ describe 'Console', ->
     cc.info('This is Info2');
     cc.err('This is Err2');
 
-#  it.only 'showWhere', ->
-#    cc.showWhere()
+  it 'showWhere', ->
+    cc.showWhere();
 return

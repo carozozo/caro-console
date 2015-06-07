@@ -98,8 +98,21 @@ cc.log('This is Log'); // won't print when production
 cc.info('This is Info');
 cc.err('This is Err'); 
 ```
+- **showWhere() - print stack-list**
+```javascript
+// in /caro-console/caro-console.js
+cc.showWhere();
+/*
+[ 
+    'Context.<anonymous> (/caro-console/caro-console.js:2:4)',
+    ...
+    ...
+]
+*/
+```
 
 ## History
+- Add [Method -> showWhere] - v0.7.0
 - Add [Settings -> showMe] - v0.6.0
 - Remove [Settings -> setBreakLine] - v0.5.2
 - Update [Settings -> setLine] lineLength default to 0 - v0.5.2

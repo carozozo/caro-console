@@ -145,6 +145,15 @@ self.accept = function() {
   return acceptLogs = caro.values(arguments);
 };
 
+self.showWhere = function() {
+  var stacks;
+  stacks = caro.getStackList(1) || [];
+  stacks = caro.map(stacks, function(stack) {
+    return stack.stack;
+  });
+  return console.log(stacks);
+};
+
 self.createLog('log').setOddColor('blue').setEvenColor('yellow');
 
 module.exports = self;

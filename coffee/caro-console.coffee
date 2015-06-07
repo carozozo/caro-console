@@ -101,12 +101,12 @@ self.line = (num, ifDouble) ->
 self.accept = () ->
   acceptLogs = caro.values(arguments)
 
-#self.showWhere = () ->
-#  stacks = caro.getStackList(1) or []
-#  stacks = caro.map(stacks, (stack) ->
-#    stack.stack
-#  )
-#  console.log(stacks)
+self.showWhere = () ->
+  stacks = caro.getStackList(1) or []
+  stacks = caro.map(stacks, (stack) ->
+    stack.stack
+  )
+  console.log(stacks)
 
 self.createLog('log').setOddColor('blue').setEvenColor('yellow')
 

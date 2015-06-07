@@ -1,6 +1,6 @@
 {
   "name": "caro-console",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "The module for easy-reading node.js console",
   "author": {
     "name": "Caro.Huang",
