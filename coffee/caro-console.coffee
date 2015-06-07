@@ -75,9 +75,9 @@ extendFn = () ->
     line = if caro.isNumber(line) then line else defaultLineLength
     lineLength = line
     fn
-#  fn.showMe = (ifShowMe) ->
-#    showMe = ifShowMe != false
-#    fn
+  fn.showMe = (ifShowMe) ->
+    showMe = ifShowMe != false
+    fn
   fn.resetAll = () ->
     color1 = defaultColor
     color2 = defaultColor
@@ -92,10 +92,10 @@ self.createLog = (logName) ->
   self[logName].logName = logName
   return self[logName]
 
-self.line = (num, line) ->
+self.line = (num, ifDouble) ->
   num = if caro.isNumber(num) then num else 40
-  line = if line != false then '=' else '-'
-  console.log caro.repeat line, num
+  ifDouble = if ifDouble != false then '=' else '-'
+  console.log caro.repeat ifDouble, num
   self
 
 self.accept = () ->

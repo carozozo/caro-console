@@ -62,6 +62,11 @@ cc.log.setStyle('bold', 'underline');
 ```javascript
 cc.log.setLine(40);
 ```
+- **showMe() - show stack-info that log placed**
+```javascript
+cc.log.showMe();
+cc.log.showMe(false);
+```
 - **resetAll(length=40) - reset all settings**
 ```javascript
 cc.log.setStyle('bold', 'underline');
@@ -95,6 +100,7 @@ cc.err('This is Err');
 ```
 
 ## History
+- Add [Settings -> showMe] - v0.6.0
 - Remove [Settings -> setBreakLine] - v0.5.2
 - Update [Settings -> setLine] lineLength default to 0 - v0.5.2
 - Remove [Method -> lineLog] - v0.5.2

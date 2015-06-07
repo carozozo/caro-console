@@ -8,38 +8,55 @@ describe 'Console', ->
         return null
       c: ['r']
     }).log('And function is', -> return 'abc');
-    a = ()->
-      return '123'
-    cc.log(a)
-
     name = 'caro';
     age = 18
     cc.log('I am %s and %s years old', name, age)
     cc.log('I am ', name, ' and ', age, ' years old')
 
-  it 'setStyle', ->
-    cc.log.setOddColor('red').setEvenColor('magenta').setStyle('bold', 'underline');
+  it 'setColor', ->
+    cc.log.setColor('red');
     cc.log('This is msg with color-red');
-    cc.log('This is msg with color-magenta');
-    cc.log.setStyle(null);
-    cc.log('This is msg with no style');
+    cc.log.resetAll()
 
-    cc.log.resetAll();
-    cc.log('This is msg without style');
+  it 'setOddColor', ->
+    cc.log.setOddColor('red');
+    cc.log('This is msg with color-red');
+    cc.log('This is msg with color-white');
+    cc.log.resetAll()
+
+  it 'setEvenColor', ->
+    cc.log.setEvenColor('blue');
+    cc.log('This is msg with color-white');
+    cc.log('This is msg with color-blue');
+    cc.log.resetAll()
+
+  it 'setStyle', ->
+    cc.log.setStyle('bold', 'underline');
+    cc.log('This is Log with underline');
+    cc.log.resetAll()
+
+  it 'setLine', ->
+    cc.log.setLine(40);
+    cc.log('This is Log with line after');
+    cc.log.resetAll()
+
+  it 'showMe', ->
+    cc.log.showMe();
+    cc.log('This is log with stack-info');
+    cc.log.resetAll()
 
   it 'createLog', ->
-    cc.createLog('err').setOddColor('red').setEvenColor('magenta');
-    cc.err('This is Log used for error');
-    cc.err('This is Log used for error');
+    cc.createLog('err').setColor('red');
+    cc.err('This is log for error');
+    cc.createLog('info').setColor('cyan');
+    cc.info('This is log for info');
 
-    cc.createLog('notice').setColor('cyan').setStyle('bold', 'underline');
-    cc.notice('This is Log used for notice');
+  it 'line', ->
+    cc.line();
+    cc.line(40, false);
 
   it 'accept', ->
-    cc.log.setColor('white');
-    cc.createLog('err').setColor('red');
-    cc.createLog('info').setColor('green');
-    cc.accept('log', 'info');
+    cc.accept('info', 'err');
     cc.log('This is Log');
     cc.info('This is Info');
     cc.err('This is Err');
@@ -48,12 +65,6 @@ describe 'Console', ->
     cc.info('This is Info2');
     cc.err('This is Err2');
 
-#  it 'showWhere', ->
+#  it.only 'showWhere', ->
 #    cc.showWhere()
-#
-#  it 'showMe', ->
-#    cc.log.showMe();
-#    cc.log('This is log with stack-info');
-#    cc.log.showMe(false);
-#    cc.log('This is log without stack-info');
 return

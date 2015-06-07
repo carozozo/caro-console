@@ -113,6 +113,10 @@ extendFn = function() {
     lineLength = line;
     return fn;
   };
+  fn.showMe = function(ifShowMe) {
+    showMe = ifShowMe !== false;
+    return fn;
+  };
   fn.resetAll = function() {
     color1 = defaultColor;
     color2 = defaultColor;
@@ -130,10 +134,10 @@ self.createLog = function(logName) {
   return self[logName];
 };
 
-self.line = function(num, line) {
+self.line = function(num, ifDouble) {
   num = caro.isNumber(num) ? num : 40;
-  line = line !== false ? '=' : '-';
-  console.log(caro.repeat(line, num));
+  ifDouble = ifDouble !== false ? '=' : '-';
+  console.log(caro.repeat(ifDouble, num));
   return self;
 };
 
