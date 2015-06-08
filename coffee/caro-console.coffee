@@ -10,6 +10,7 @@ defaultColor = 'white'
 defStyle = null
 defaultLineLength = 0
 defShowMe = false
+defHead = null
 acceptLogs = []
 
 getStackInfo = (stack) ->
@@ -32,13 +33,17 @@ doConsole = () ->
   styles = arguments[2]
   lineLength = arguments[3]
   showMe = arguments[4]
+  head = arguments[5]
   oColor = colors[color] or colors
   if(styles)
     caro.forEach styles, (style) ->
       oColor = oColor[style] or oColor
   if(showMe)
     stacks = caro.getStackList(2, 1) or []
-    console.log (getStackInfo(stacks[0]))
+    console.log oColor(getStackInfo(stacks[0]))
+  if(head)
+    head = caro.executeIfFn(head) or head
+    console.log oColor(head)
   console.log oColor(msg)
   console.log caro.repeat('=', lineLength) if(lineLength > 0)
 extendFn = () ->
@@ -47,6 +52,7 @@ extendFn = () ->
   styles = defStyle
   lineLength = defaultLineLength
   showMe = defShowMe
+  head = defHead
   fn = (msg, variable) ->
     return if acceptLogs.length > 0 and acceptLogs.indexOf(fn.logName) < 0
     return console.log() if arguments.length <= 0
@@ -56,7 +62,7 @@ extendFn = () ->
     else
       @isOdd = false
       mainColor = color2
-    doConsole arguments, mainColor, styles, lineLength, showMe
+    doConsole arguments, mainColor, styles, lineLength, showMe, head
     self
   fn.setColor = (color) ->
     color1 = color or defaultColor
@@ -78,12 +84,15 @@ extendFn = () ->
   fn.showMe = (ifShowMe) ->
     showMe = ifShowMe != false
     fn
+  fn.head = (pre) ->
+    head = pre if caro.isString(pre) or caro.isFunction(pre)
   fn.resetAll = () ->
     color1 = defaultColor
     color2 = defaultColor
     styles = defStyle
     lineLength = defaultLineLength
     showMe = defShowMe
+    head = defHead
     fn
   fn
 

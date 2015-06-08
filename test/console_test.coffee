@@ -7,7 +7,7 @@ describe 'Console', ->
       b: ()->
         return null
       c: ['r']
-    }).log('And function is', -> return 'abc');
+    });
     name = 'caro';
     age = 18
     cc.log('I am %s and %s years old', name, age)
@@ -43,6 +43,19 @@ describe 'Console', ->
   it 'showMe', ->
     cc.log.showMe();
     cc.log('This is log with stack-info');
+    cc.log.resetAll()
+
+  it 'head', ->
+    cc.log.head('I am head');
+    cc.log('This is log whit head');
+
+    index = 0
+    cc.log.head(() ->
+      date = new Date();
+      return '**Index:' + (++index) + ' - ' + date + '**';
+    );
+    cc.log('This is log 1');
+    cc.log('This is log 2');
     cc.log.resetAll()
 
   it 'createLog', ->

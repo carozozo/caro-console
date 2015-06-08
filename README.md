@@ -77,6 +77,22 @@ Context.<anonymous> (/caro-console/caro-console.coffee:3:4)
 This is log with stack-info
 */
 ```
+- **prefix(string | function) - show prefix-log**
+```javascript
+var index = 0
+cc.log.prefix(() ->
+  var date = new Date();
+  return '**Index:' + (++index) + ' - ' + date + '**';
+);
+cc.log('This is log 1');
+cc.log('This is log 2');
+/*
+**Index:1 - Tue Jun 09 2015 01:00:24 GMT+0800 (台北標準時間)**
+This is log 1
+**Index:2 - Tue Jun 09 2015 01:00:24 GMT+0800 (台北標準時間)**
+This is log 2
+*/
+```
 - **resetAll() - reset all settings**
 ```javascript
 cc.log.resetAll();
