@@ -47,7 +47,7 @@ describe 'Console', ->
 
   it 'head', ->
     cc.log.head('I am head');
-    cc.log('This is log whit head');
+    cc.log('This is log with head');
 
     index = 0
     cc.log.head(() ->

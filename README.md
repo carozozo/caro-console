@@ -77,10 +77,10 @@ Context.<anonymous> (/caro-console/caro-console.coffee:3:4)
 This is log with stack-info
 */
 ```
-- **prefix(string | function) - show prefix-log**
+- **head(string | function) - show pre-log**
 ```javascript
 var index = 0
-cc.log.prefix(() ->
+cc.log.head(() ->
   var date = new Date();
   return '**Index:' + (++index) + ' - ' + date + '**';
 );
