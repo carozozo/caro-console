@@ -61,15 +61,25 @@ cc.log.setStyle('bold', 'underline');
 - **setLine([length=0]) - will print line after each log**
 ```javascript
 cc.log.setLine(40);
+cc.log('This is Log with line after');
+/*
+This is Log with line after
+========================================
+*/
 ```
-- **showMe() - show stack-info that log placed**
+- **showMe([bool=true]) - show stack-info that log placed**
 ```javascript
+/* e.g. in [/caro-console/caro-console.js] */
 cc.log.showMe();
-cc.log.showMe(false);
+cc.log('This is log with stack-info');
+/*
+Context.<anonymous> (/caro-console/caro-console.coffee:3:4)
+This is log with stack-info
+*/
 ```
-- **resetAll(length=40) - reset all settings**
+- **resetAll() - reset all settings**
 ```javascript
-cc.log.setStyle('bold', 'underline');
+cc.log.resetAll();
 ```
 
 ### Method
@@ -100,7 +110,7 @@ cc.err('This is Err');
 ```
 - **showWhere() - print stack-list**
 ```javascript
-// in /caro-console/caro-console.js
+/* e.g. in [/caro-console/caro-console.js] */
 cc.showWhere();
 /*
 [ 
