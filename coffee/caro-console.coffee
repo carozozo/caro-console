@@ -40,10 +40,10 @@ doConsole = () ->
       oColor = oColor[style] or oColor
   if(showMe)
     stacks = caro.getStackList(2, 1) or []
-    console.log oColor(getStackInfo(stacks[0]))
+    console.log getStackInfo(stacks[0])
   if(head)
     head = caro.executeIfFn(head) or head
-    console.log oColor(head)
+    console.log head
   console.log oColor(msg)
   console.log caro.repeat('=', lineLength) if(lineLength > 0)
 extendFn = () ->
