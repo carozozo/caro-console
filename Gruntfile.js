@@ -1,5 +1,4 @@
 module.exports = function (grunt) {
-    var pkgName = '<%= pkg.name %>';
     var coffeeDir = 'coffee/';
     var jsDir = 'js/';
     var testDir = 'test/';
@@ -22,14 +21,6 @@ module.exports = function (grunt) {
                         return dest + '/' + src.replace(/\.coffee$/, '.js');
                     }
                 }]
-            },
-            merge: {
-                options: {
-                    bare: true
-                },
-                files: {
-                    '<%= pkg.name %>.js': [coffeeDir + pkgName + '.coffee']
-                }
             }
         },
         mochaTest: {
@@ -39,7 +30,7 @@ module.exports = function (grunt) {
                     require: [
                         nodeDir + 'coffee-script/register',
                         function () {
-                            global.cc = require('./caro-console.js');
+                            global.cc = require('./js/caro-console.js');
                         },
                         function () {
                             var chai = require('chai');

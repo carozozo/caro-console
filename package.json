@@ -6,10 +6,7 @@
     "name": "Caro.Huang",
     "email": "carozozo@yahoo.com.tw"
   },
-  "main": "caro-console.js",
-  "files": [
-    "caro-console.js"
-  ],
+  "main": "js/caro-console.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/carozozo/caro-console"
