@@ -87,9 +87,9 @@ cc.log.head(() ->
 cc.log('This is log 1');
 cc.log('This is log 2');
 /*
-**Index:1 - Tue Jun 09 2015 01:00:24 GMT+0800 (�x�_�зǮɶ�)**
+**Index:1 - Tue Jun 09 2015 19:00:24 GMT+0800 (CST)**
 This is log 1
-**Index:2 - Tue Jun 09 2015 01:00:24 GMT+0800 (�x�_�зǮɶ�)**
+**Index:2 - Tue Jun 09 2015 19:00:24 GMT+0800 (CST)**
 This is log 2
 */
 cc.log.head(null)
