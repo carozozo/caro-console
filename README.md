@@ -140,6 +140,7 @@ cc.showWhere();
 ```
 
 ## History
+- Add [Settings -> head] - v0.8.0
 - Add [Method -> showWhere] - v0.7.0
 - Add [Settings -> showMe] - v0.6.0
 - Remove [Settings -> setBreakLine] - v0.5.2
