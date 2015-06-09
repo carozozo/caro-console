@@ -61,11 +61,11 @@ doConsole = function() {
   }
   if (showMe) {
     stacks = caro.getStackList(2, 1) || [];
-    console.log(oColor(getStackInfo(stacks[0])));
+    console.log(getStackInfo(stacks[0]));
   }
-  if (head) {
+  if (caro.isString(head) || caro.isFunction(head)) {
     head = caro.executeIfFn(head) || head;
-    console.log(oColor(head));
+    console.log(head);
   }
   console.log(oColor(msg));
   if (lineLength > 0) {
@@ -126,9 +126,7 @@ extendFn = function() {
     return fn;
   };
   fn.head = function(pre) {
-    if (caro.isString(pre) || caro.isFunction(pre)) {
-      return head = pre;
-    }
+    return head = pre;
   };
   fn.resetAll = function() {
     color1 = defaultColor;

@@ -41,7 +41,7 @@ doConsole = () ->
   if(showMe)
     stacks = caro.getStackList(2, 1) or []
     console.log getStackInfo(stacks[0])
-  if(head)
+  if(caro.isString(head) or caro.isFunction(head))
     head = caro.executeIfFn(head) or head
     console.log head
   console.log oColor(msg)
@@ -85,7 +85,7 @@ extendFn = () ->
     showMe = ifShowMe != false
     fn
   fn.head = (pre) ->
-    head = pre if caro.isString(pre) or caro.isFunction(pre)
+    head = pre
   fn.resetAll = () ->
     color1 = defaultColor
     color2 = defaultColor

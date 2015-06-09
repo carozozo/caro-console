@@ -54,8 +54,11 @@ describe 'Console', ->
       date = new Date();
       return '**Index:' + (++index) + ' - ' + date + '**';
     );
-    cc.log('This is log 1');
-    cc.log('This is log 2');
+    cc.log('This is log1 with head');
+    cc.log('This is log2 with head');
+
+    cc.log.head(null)
+    cc.log('this is log without head')
     cc.log.resetAll()
 
   it 'createLog', ->

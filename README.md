@@ -87,11 +87,13 @@ cc.log.head(() ->
 cc.log('This is log 1');
 cc.log('This is log 2');
 /*
-**Index:1 - Tue Jun 09 2015 01:00:24 GMT+0800 (台北標準時間)**
+**Index:1 - Tue Jun 09 2015 01:00:24 GMT+0800 (嚙綞嚙稻嚙請準時塚蕭)**
 This is log 1
-**Index:2 - Tue Jun 09 2015 01:00:24 GMT+0800 (台北標準時間)**
+**Index:2 - Tue Jun 09 2015 01:00:24 GMT+0800 (嚙綞嚙稻嚙請準時塚蕭)**
 This is log 2
 */
+cc.log.head(null)
+cc.log('This is log without head')
 ```
 - **resetAll() - reset all settings**
 ```javascript
