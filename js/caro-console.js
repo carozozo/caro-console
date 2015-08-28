@@ -3,7 +3,7 @@
  * Console
  * @author Caro.Huang
  */
-var acceptLogs, caro, colors, combineMsg, defHead, defShowMe, defStyle, defaultColor, defaultLineLength, doConsole, extendFn, getStackInfo, self;
+var acceptLogs, caro, colors, combineMsg, defHead, defShowMe, defStyle, defaultColor, defaultLineLength, doConsole, extendFn, getStackInfo, self, toWord;
 
 self = {};
 
@@ -30,12 +30,19 @@ getStackInfo = function(stack) {
   return stack.stack;
 };
 
+toWord = function(msg) {
+  if (caro.isError(msg)) {
+    return msg.toString();
+  }
+  return caro.toWord(msg);
+};
+
 combineMsg = function(msg) {
   var args;
   args = caro.drop(arguments);
-  msg = caro.toWord(msg);
+  msg = toWord(msg);
   caro.forEach(args, function(val) {
-    val = caro.toWord(val);
+    val = toWord(val);
     if (msg.indexOf('%s') > -1) {
       return msg = msg.replace('%s', val);
     } else {

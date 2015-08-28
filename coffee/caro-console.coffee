@@ -16,11 +16,15 @@ acceptLogs = []
 getStackInfo = (stack) ->
   return if !stack
   stack.stack
+toWord = (msg) ->
+  return msg.toString() if caro.isError(msg)
+  caro.toWord(msg)
+
 combineMsg = (msg) ->
   args = caro.drop(arguments)
-  msg = caro.toWord(msg)
+  msg = toWord(msg)
   caro.forEach(args, (val) ->
-    val = caro.toWord(val)
+    val = toWord(val)
     if(msg.indexOf('%s') > -1)
       msg = msg.replace('%s', val)
     else

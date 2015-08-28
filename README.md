@@ -41,6 +41,11 @@ cc.createLog('notice').setColor('cyan').setStyle('bold', 'underline');
 cc.notice('This is Log used for notice');
 ```
 
+### Support print Error
+```
+cc.log(new Error('This is Error')); // 'Error: This is Error'
+```
+
 ### Settings
 - **setColor([color='white']) - set log-color**
 ```javascript
@@ -140,6 +145,7 @@ cc.showWhere();
 ```
 
 ## History
+- Support print Error - v0.9.0
 - Add [Settings -> head] - v0.8.0
 - Add [Method -> showWhere] - v0.7.0
 - Add [Settings -> showMe] - v0.6.0
