@@ -3,7 +3,7 @@
  * Console
  * @author Caro.Huang
  */
-var acceptLogs, caro, colors, combineMsg, defHead, defShowMe, defStyle, defaultColor, defaultLineLength, doConsole, extendFn, getStackInfo, self, toWord;
+var acceptLogs, caro, colors, defHead, defShowMe, defStyle, defaultColor, defaultLineLength, doConsole, extendFn, getStackInfo, self;
 
 self = {};
 
@@ -30,31 +30,10 @@ getStackInfo = function(stack) {
   return stack.stack;
 };
 
-toWord = function(msg) {
-  if (caro.isError(msg)) {
-    return msg.toString();
-  }
-  return caro.toWord(msg);
-};
-
-combineMsg = function(msg) {
-  var args;
-  args = caro.drop(arguments);
-  msg = toWord(msg);
-  caro.forEach(args, function(val) {
-    val = toWord(val);
-    if (msg.indexOf('%s') > -1) {
-      return msg = msg.replace('%s', val);
-    } else {
-      return msg += val;
-    }
-  });
-  return msg;
-};
-
 doConsole = function() {
-  var color, head, lineLength, msg, oColor, showMe, stacks, styles;
-  msg = combineMsg.apply(null, arguments[0]);
+  var color, firstMsg, head, lineLength, msgs, oColor, showMe, stacks, styles;
+  msgs = arguments[0];
+  firstMsg = msgs[0];
   color = arguments[1];
   styles = arguments[2];
   lineLength = arguments[3];
@@ -74,7 +53,32 @@ doConsole = function() {
     head = caro.executeIfFn(head) || head;
     console.log(head);
   }
-  console.log(oColor(msg));
+  if (caro.isString(firstMsg) && firstMsg.indexOf('%s') > -1) {
+    caro.forEach(msgs, function(msg, i) {
+      if (i === 0) {
+        return;
+      }
+      return firstMsg = firstMsg.replace('%s', msg);
+    });
+    msgs = [firstMsg];
+  } else {
+    caro.forEach(msgs, function(msg, i) {
+      var newMsg;
+      if (caro.isUndefined(msg)) {
+        newMsg = oColor('undefined');
+      } else if (caro.isArray(msg)) {
+        newMsg = oColor(JSON.stringify(msg));
+      } else if (caro.isPlainObject(msg)) {
+        newMsg = oColor(JSON.stringify(msg, null, 2));
+      } else if (caro.isFunction(msg.toString)) {
+        newMsg = oColor(msg.toString());
+      } else {
+        newMsg = oColor(msg);
+      }
+      msgs[i] = newMsg;
+    });
+  }
+  console.log.apply(null, msgs);
   if (lineLength > 0) {
     return console.log(caro.repeat('=', lineLength));
   }

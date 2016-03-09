@@ -7,12 +7,15 @@ describe 'Console', ->
       b: ()->
         return null
       c: ['r']
+      d: {d1: 1, d2: 2}
     })
+    cc.log(new Error('This is Error')).log((a) -> return a)
+    cc.log(true, false)
+
     name = 'caro'
     age = 18
     cc.log('I am %s and %s years old', name, age)
     cc.log('I am ', name, ' and ', age, ' years old')
-    cc.log(new Error('This is Error'))
 
   it 'setColor', ->
     cc.log.setColor('red')

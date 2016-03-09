@@ -16,29 +16,17 @@ acceptLogs = []
 getStackInfo = (stack) ->
   return if !stack
   stack.stack
-toWord = (msg) ->
-  return msg.toString() if caro.isError(msg)
-  caro.toWord(msg)
 
-combineMsg = (msg) ->
-  args = caro.drop(arguments)
-  msg = toWord(msg)
-  caro.forEach(args, (val) ->
-    val = toWord(val)
-    if(msg.indexOf('%s') > -1)
-      msg = msg.replace('%s', val)
-    else
-      msg += val
-  )
-  msg
-doConsole = () ->
-  msg = combineMsg.apply(null, arguments[0])
+doConsole = ->
+  msgs = arguments[0]
+  firstMsg = msgs[0]
   color = arguments[1]
   styles = arguments[2]
   lineLength = arguments[3]
   showMe = arguments[4]
   head = arguments[5]
   oColor = colors[color] or colors
+
   if(styles)
     caro.forEach styles, (style) ->
       oColor = oColor[style] or oColor
@@ -48,9 +36,33 @@ doConsole = () ->
   if(caro.isString(head) or caro.isFunction(head))
     head = caro.executeIfFn(head) or head
     console.log head
-  console.log oColor(msg)
+
+  if(caro.isString(firstMsg) and firstMsg.indexOf('%s') > -1)
+    caro.forEach(msgs, (msg, i) ->
+      return if(i is 0)
+      firstMsg = firstMsg.replace('%s', msg)
+    )
+    msgs = [firstMsg]
+  else
+    caro.forEach(msgs, (msg, i) ->
+      if(caro.isUndefined(msg))
+        newMsg = oColor('undefined')
+      else if(caro.isArray(msg))
+        newMsg = oColor(JSON.stringify(msg))
+      else if(caro.isPlainObject(msg))
+        newMsg = oColor(JSON.stringify(msg, null, 2))
+      else if(caro.isFunction(msg.toString))
+        newMsg = oColor(msg.toString())
+      else
+        newMsg = oColor(msg)
+      msgs[i] = newMsg
+      return
+    )
+
+  console.log.apply(null, msgs)
   console.log caro.repeat('=', lineLength) if(lineLength > 0)
-extendFn = () ->
+
+extendFn = ->
   color1 = defaultColor
   color2 = defaultColor
   styles = defStyle
@@ -78,7 +90,7 @@ extendFn = () ->
   fn.setEvenColor = (color) ->
     color2 = color or defaultColor
     fn
-  fn.setStyle = () ->
+  fn.setStyle = ->
     styles = arguments
     fn
   fn.setLine = (line) ->
@@ -90,7 +102,7 @@ extendFn = () ->
     fn
   fn.head = (pre) ->
     head = pre
-  fn.resetAll = () ->
+  fn.resetAll = ->
     color1 = defaultColor
     color2 = defaultColor
     styles = defStyle
@@ -111,10 +123,10 @@ self.line = (num, ifDouble) ->
   console.log caro.repeat ifDouble, num
   self
 
-self.accept = () ->
+self.accept = ->
   acceptLogs = caro.values(arguments)
 
-self.showWhere = () ->
+self.showWhere = ->
   stacks = caro.getStackList(1) or []
   stacks = caro.map(stacks, (stack) ->
     stack.stack

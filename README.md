@@ -12,7 +12,7 @@ $ npm install caro
 
 ```javascript
 var cc = require('caro-console');
-cc.log({caro: function(){}}); // print '{caro: function(){})' not '{ caro: [Function] }'
+cc.log('This is caro-console');
 ```
 
 ### Print nonstop-log
@@ -145,6 +145,7 @@ cc.showWhere();
 ```
 
 ## History
+- Print object by JSON - v0.9.1
 - Support print Error - v0.9.0
 - Add [Settings -> head] - v0.8.0
 - Add [Method -> showWhere] - v0.7.0
