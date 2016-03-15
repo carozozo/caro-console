@@ -66,8 +66,10 @@ doConsole = function() {
       var newMsg;
       if (caro.isUndefined(msg)) {
         newMsg = oColor('undefined');
+      } else if (msg === null) {
+        newMsg = oColor('null');
       } else if (caro.isArray(msg)) {
-        newMsg = oColor(JSON.stringify(msg));
+        newMsg = oColor(JSON.stringify(msg, null, 2));
       } else if (caro.isPlainObject(msg)) {
         newMsg = oColor(JSON.stringify(msg, null, 2));
       } else if (caro.isFunction(msg.toString)) {

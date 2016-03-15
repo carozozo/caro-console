@@ -1,6 +1,15 @@
 do ->
 describe 'Console', ->
   it 'log', ->
+    cc.log undefined
+    cc.log null
+    cc.log ''
+    cc.log 0
+    cc.log {a: 1, b: 2}
+    cc.log [1, 2, 3]
+    cc.log -> return 1
+
+  it 'special log', ->
     cc.log('This is ', undefined).log('And arr = ', ['caro', 'console'])
     cc.log('obj is ', {
       a: 1,

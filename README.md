@@ -145,6 +145,7 @@ cc.showWhere();
 ```
 
 ## History
+- Fix bug of print null - v0.9.2
 - Print object by JSON - v0.9.1
 - Support print Error - v0.9.0
 - Add [Settings -> head] - v0.8.0
