@@ -1,12 +1,9 @@
 {
   "name": "caro-console",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "description": "The module for easy-reading node.js console",
-  "author": {
-    "name": "Caro.Huang",
-    "email": "carozozo@yahoo.com.tw"
-  },
-  "main": "js/caro-console.js",
+  "author": "Caro.Huang <carozozo@yahoo.com.tw>",
+  "main": "dist/caro-console.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/carozozo/caro-console"
@@ -26,10 +23,10 @@
   "devDependencies": {
     "chai": "latest",
     "coffee-script": "latest",
-    "coffeelint": "latest",
-    "grunt": "latest",
-    "grunt-contrib-coffee": "latest",
-    "grunt-mocha-test": "latest",
+    "del": "latest",
+    "gulp": "latest",
+    "gulp-coffee": "latest",
+    "gulp-mocha": "latest",
     "mocha": "latest"
   }
 }
