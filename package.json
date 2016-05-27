@@ -1,6 +1,6 @@
 {
   "name": "caro-console",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "The module for easy-reading node.js console",
   "author": "Caro.Huang <carozozo@yahoo.com.tw>",
   "main": "dist/caro-console.js",
@@ -14,7 +14,7 @@
     "log"
   ],
   "scripts": {
-    "test": "grunt test"
+    "test": "gulp test"
   },
   "dependencies": {
     "caro": "latest",
