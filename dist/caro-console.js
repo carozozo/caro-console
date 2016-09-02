@@ -31,7 +31,7 @@ getStackInfo = function(stack) {
 };
 
 doConsole = function() {
-  var color, firstMsg, head, lineLength, msgs, oColor, showMe, stacks, styles;
+  var color, firstMsg, head, i, j, k, l, len, len1, len2, line, lineLength, msg, msgs, newMsg, oColor, showMe, stacks, style, styles, val;
   msgs = arguments[0];
   firstMsg = msgs[0];
   color = arguments[1];
@@ -41,48 +41,54 @@ doConsole = function() {
   head = arguments[5];
   oColor = colors[color] || colors;
   if (styles) {
-    caro.forEach(styles, function(style) {
-      return oColor = oColor[style] || oColor;
-    });
+    for (j = 0, len = styles.length; j < len; j++) {
+      style = styles[j];
+      oColor = oColor[style] || oColor;
+    }
   }
   if (showMe) {
     stacks = caro.getStackList(2, 1) || [];
     console.log(getStackInfo(stacks[0]));
   }
-  if (caro.isString(head) || caro.isFunction(head)) {
+  if (typeof head === 'string' || typeof head === 'function') {
     head = caro.executeIfFn(head) || head;
     console.log(head);
   }
-  if (caro.isString(firstMsg) && firstMsg.indexOf('%s') > -1) {
-    caro.forEach(msgs, function(msg, i) {
+  if (typeof firstMsg === 'string' && firstMsg.indexOf('%s') > -1) {
+    for (i = k = 0, len1 = msgs.length; k < len1; i = ++k) {
+      val = msgs[i];
       if (i === 0) {
-        return;
+        continue;
       }
-      return firstMsg = firstMsg.replace('%s', msg);
-    });
+      firstMsg = firstMsg.replace('%s', msg);
+    }
     msgs = [firstMsg];
   } else {
-    caro.forEach(msgs, function(msg, i) {
-      var newMsg;
-      if (caro.isUndefined(msg)) {
+    for (i = l = 0, len2 = msgs.length; l < len2; i = ++l) {
+      msg = msgs[i];
+      if (typeof msg === 'undefined') {
         newMsg = oColor('undefined');
       } else if (msg === null) {
         newMsg = oColor('null');
-      } else if (caro.isArray(msg)) {
+      } else if (Array.isArray(msg)) {
         newMsg = oColor(JSON.stringify(msg, null, 2));
-      } else if (caro.isPlainObject(msg)) {
+      } else if (typeof msg === 'object') {
         newMsg = oColor(JSON.stringify(msg, null, 2));
-      } else if (caro.isFunction(msg.toString)) {
+      } else if (typeof msg.toString === 'function') {
         newMsg = oColor(msg.toString());
       } else {
         newMsg = oColor(msg);
       }
       msgs[i] = newMsg;
-    });
+    }
   }
   console.log.apply(null, msgs);
   if (lineLength > 0) {
-    return console.log(caro.repeat('=', lineLength));
+    line = '';
+    caro.loop(function() {
+      line += '=';
+    }, lineLength);
+    return console.log(line);
   }
 };
 
@@ -130,7 +136,7 @@ extendFn = function() {
     return fn;
   };
   fn.setLine = function(line) {
-    line = caro.isNumber(line) ? line : defaultLineLength;
+    line = typeof line === 'number' ? line : defaultLineLength;
     lineLength = line;
     return fn;
   };
@@ -160,20 +166,31 @@ self.createLog = function(logName) {
 };
 
 self.line = function(num, ifDouble) {
-  num = caro.isNumber(num) ? num : 40;
+  var str;
+  num = typeof num === 'number' ? num : 40;
   ifDouble = ifDouble !== false ? '=' : '-';
-  console.log(caro.repeat(ifDouble, num));
+  str = '';
+  caro.loop(function() {
+    str += ifDouble;
+  }, num);
+  console.log(str);
   return self;
 };
 
 self.accept = function() {
-  return acceptLogs = caro.values(arguments);
+  var arg, j, len;
+  acceptLogs = [];
+  for (j = 0, len = arguments.length; j < len; j++) {
+    arg = arguments[j];
+    acceptLogs.push(arg);
+  }
+  return acceptLogs;
 };
 
 self.showWhere = function() {
   var stacks;
   stacks = caro.getStackList(1) || [];
-  stacks = caro.map(stacks, function(stack) {
+  stacks = stacks.map(function(stack) {
     return stack.stack;
   });
   return console.log(stacks);

@@ -28,41 +28,44 @@ doConsole = ->
   oColor = colors[color] or colors
 
   if(styles)
-    caro.forEach styles, (style) ->
+    for style in styles
       oColor = oColor[style] or oColor
   if(showMe)
     stacks = caro.getStackList(2, 1) or []
     console.log getStackInfo(stacks[0])
-  if(caro.isString(head) or caro.isFunction(head))
+  if(typeof head is 'string' or typeof head is 'function')
     head = caro.executeIfFn(head) or head
     console.log head
 
-  if(caro.isString(firstMsg) and firstMsg.indexOf('%s') > -1)
-    caro.forEach(msgs, (msg, i) ->
-      return if(i is 0)
+  if(typeof firstMsg is 'string' and firstMsg.indexOf('%s') > -1)
+    for val, i in msgs
+      continue if(i is 0)
       firstMsg = firstMsg.replace('%s', msg)
-    )
     msgs = [firstMsg]
   else
-    caro.forEach(msgs, (msg, i) ->
-      if(caro.isUndefined(msg))
+    for msg, i in msgs
+      if(typeof msg is 'undefined')
         newMsg = oColor('undefined')
       else if(msg is null)
         newMsg = oColor('null')
-      else if(caro.isArray(msg))
+      else if(Array.isArray(msg))
         newMsg = oColor(JSON.stringify(msg, null, 2))
-      else if(caro.isPlainObject(msg))
+      else if(typeof msg is 'object')
         newMsg = oColor(JSON.stringify(msg, null, 2))
-      else if(caro.isFunction(msg.toString))
+      else if(typeof msg.toString is 'function')
         newMsg = oColor(msg.toString())
       else
         newMsg = oColor(msg)
       msgs[i] = newMsg
-      return
-    )
 
   console.log.apply(null, msgs)
-  console.log caro.repeat('=', lineLength) if(lineLength > 0)
+  if(lineLength > 0)
+    line = ''
+    caro.loop(->
+      line += '='
+      return
+    , lineLength)
+    console.log line
 
 extendFn = ->
   color1 = defaultColor
@@ -96,7 +99,7 @@ extendFn = ->
     styles = arguments
     fn
   fn.setLine = (line) ->
-    line = if caro.isNumber(line) then line else defaultLineLength
+    line = if typeof line is 'number' then line else defaultLineLength
     lineLength = line
     fn
   fn.showMe = (ifShowMe) ->
@@ -120,17 +123,25 @@ self.createLog = (logName) ->
   return self[logName]
 
 self.line = (num, ifDouble) ->
-  num = if caro.isNumber(num) then num else 40
+  num = if typeof num is 'number' then num else 40
   ifDouble = if ifDouble != false then '=' else '-'
-  console.log caro.repeat ifDouble, num
+  str = ''
+  caro.loop(->
+    str += ifDouble
+    return
+  , num)
+  console.log str
   self
 
 self.accept = ->
-  acceptLogs = caro.values(arguments)
+  acceptLogs = []
+  for arg in arguments
+    acceptLogs.push(arg)
+  acceptLogs
 
 self.showWhere = ->
   stacks = caro.getStackList(1) or []
-  stacks = caro.map(stacks, (stack) ->
+  stacks = stacks.map((stack) ->
     stack.stack
   )
   console.log(stacks)
